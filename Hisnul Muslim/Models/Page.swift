@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Page
-struct Page: Decodable {
+struct Page: Codable, Hashable {
     let page: Int
     let content, reference: String
 }

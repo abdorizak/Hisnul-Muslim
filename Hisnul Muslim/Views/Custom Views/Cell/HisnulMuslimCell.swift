@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class HisnulMuslimCell: UITableViewCell {
 
@@ -43,3 +44,4 @@ class HisnulMuslimCell: UITableViewCell {
     }
 
 }
+

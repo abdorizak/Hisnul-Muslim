@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Content
-struct Content: Decodable {
+struct Content: Codable, Hashable {
     let id: Int
     let title: String
     let pages: [Page]

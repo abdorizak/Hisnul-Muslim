@@ -6,17 +6,16 @@
 //
 
 import UIKit
+import SwiftUI
 
 class HomeViewController: UIViewController {
-    private var vm = HSMViewModel()
     
-    private let tableView: UITableView = {
-        let tableView = UITableView(frame: .zero)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(HisnulMuslimCell.self, forCellReuseIdentifier: HisnulMuslimCell.identifier)
-        tableView.separatorStyle = .singleLine
-        return tableView
-    }()
+    enum Section { case main }
+    private var vm = HSMViewModel()
+    private var filterContents = [Content]()
+    private var isSearching: Bool = false
+    private var tableView: UITableView!
+    private var datasource: UITableViewDiffableDataSource<Section, Content>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +24,12 @@ class HomeViewController: UIViewController {
     
     private func configureHomeVC() {
         view.backgroundColor = .systemBackground
-        view.addSubview(tableView)
         configNavBar()
+        ConfigureSearchController()
         configTableView()
         vm.delegate = self
         vm.getHSMData()
-        
+        configureDataSource()
     }
     
     private func configNavBar() {
@@ -39,9 +38,22 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
+    func ConfigureSearchController() {
+        let searchController                                    = UISearchController()
+        searchController.searchResultsUpdater                   = self
+        searchController.searchBar.placeholder                  = "ابحث ..."
+        searchController.searchBar.searchTextField.textAlignment = .right
+        searchController.obscuresBackgroundDuringPresentation   = false
+        navigationItem.searchController                         = searchController
+    }
+    
     private func configTableView() {
-        tableView.dataSource = self
+        tableView = UITableView(frame: view.bounds)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(HisnulMuslimCell.self, forCellReuseIdentifier: HisnulMuslimCell.identifier)
+        tableView.separatorStyle = .singleLine
         tableView.delegate = self
+        view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -52,10 +64,30 @@ class HomeViewController: UIViewController {
 
 }
 
-extension HomeViewController: UITableViewDataSource, UITableViewDelegate, HSMDelegate {
+extension HomeViewController: HSMDelegate, UITableViewDelegate {
     
     func didFinish() {
+        updateData(on: vm.hs_mslm)
         tableView.reloadDataOnMainThread()
+    }
+    
+    func configureDataSource() {
+        self.datasource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
+            let cell = tableView.dequeueReusableCell(withIdentifier: HisnulMuslimCell.identifier, for: indexPath) as! HisnulMuslimCell
+            let hsm_Contents = self.vm.index(indexPath.row)
+            cell.displayData(list: hsm_Contents)
+            cell.selectionStyle = .none
+            return cell
+        })
+    }
+    
+    func updateData(on hsmContents: [Content]) {
+        var snapShot = NSDiffableDataSourceSnapshot<Section, Content>()
+        snapShot.appendSections([.main])
+        snapShot.appendItems(hsmContents)
+        DispatchQueue.main.async {
+            self.datasource.apply(snapShot, animatingDifferences: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -63,9 +95,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate, HSMDel
             print("didTap.")
             completionHandler(true)
         }
-        
-        FAction.image = UIImage(named: "bookmark")
-        
+
         FAction.backgroundColor = .orange.withAlphaComponent(0.4)
         let configuration = UISwipeActionsConfiguration(actions: [FAction])
         configuration.performsFirstActionWithFullSwipe = false
@@ -73,23 +103,31 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate, HSMDel
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("current Index: \(indexPath.row)")
+        let activeArray = isSearching ? filterContents : vm.hs_mslm
+        let selectedObj = activeArray[indexPath.row]
+        let detailVC = DetailsViewController()
+        detailVC.content = selectedObj
+        detailVC.modalTransitionStyle = .coverVertical
+        detailVC.modalPresentationStyle = .pageSheet
+        let navigationC = UINavigationController(rootViewController: detailVC)
+        present(navigationC, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.vm.hs_mslm.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: HisnulMuslimCell.identifier, for: indexPath) as! HisnulMuslimCell
-        let hsm_Contents = self.vm.index(indexPath.row)
-        cell.displayData(list: hsm_Contents)
-        cell.selectionStyle = .none
-        return cell
-    }
-    
-
 }
 
-
+extension HomeViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let filter = searchController.searchBar.text, !filter.isEmpty else {
+            filterContents.removeAll()
+            isSearching = false
+            updateData(on: vm.hs_mslm)
+            return
+        }
+        isSearching = true
+        filterContents = vm.hs_mslm.filter { $0.title.contains(filter) }
+        updateData(on: filterContents)
+    }
+    
+}
 

@@ -15,11 +15,3 @@ extension UITableView {
     }
     
 }
-
-extension UICollectionView {
-    
-    func reloadDataOnMainThread() {
-        DispatchQueue.main.async { self.reloadData() }
-    }
-    
-}

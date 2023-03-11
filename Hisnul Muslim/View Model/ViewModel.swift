@@ -35,39 +35,3 @@ class HSMViewModel {
         return hisnulmuslim
     }
 }
-
-class HisnulmuslimListViewModel {
-    var hs_muslim: [HisnulmuslimViewModel]
-    
-    init() {
-        self.hs_muslim = [HisnulmuslimViewModel]()
-    }
-    
-    func hsVM(at index: Int) -> HisnulmuslimViewModel {
-        self.hs_muslim[index]
-    }
-    
-}
-
-struct HisnulmuslimViewModel {
-    let hs_muslim_dua: Content
-    
-    var dua_id: Int {
-        self.hs_muslim_dua.id
-    }
-    
-    var dua_title: String {
-        self.hs_muslim_dua.title
-    }
-    
-    var dua_pages: [Page] {
-        self.hs_muslim_dua.pages
-    }
-}
-
-
-
-
-
-
-

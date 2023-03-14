@@ -21,8 +21,9 @@ class DetailsViewController: UIViewController {
     
     private func configureDetailViewController() {
         view.backgroundColor = .systemBackground
-        let DoneBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
-        navigationItem.rightBarButtonItem = DoneBtn
+        let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFavorite))
+        navigationItem.rightBarButtonItem = addBtn
+        navigationItem.title = content.title
         configureCollectionView()
         configureDataSource()
         updateUI()
@@ -42,12 +43,21 @@ class DetailsViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//            collectionView.heightAnchor.constraint(equalToConstant: 800),
         ])
     }
     
-    @objc func dismissVC() {
-        dismiss(animated: true, completion: nil)
+    @objc func addFavorite() {
+        let favorite = Content(id: content.id, title: content.title, pages: content.pages)
+        
+        PersistenceManager.updateWith(favorite: favorite, actionType: .add) { [weak self] error in
+            guard let self = self else { return }
+            
+            guard let error = error else {
+                self.presentAlert(title: "Success!", message: "You have successfull favorite this user 🎉", buttonTitle: "Ok")
+                return
+            }
+            self.presentAlert(title: "Something Wrong", message: error.rawValue, buttonTitle: "ok")
+        }
     }
     
 }

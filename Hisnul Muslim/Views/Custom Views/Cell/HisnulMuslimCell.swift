@@ -11,7 +11,7 @@ import SwiftUI
 class HisnulMuslimCell: UITableViewCell {
 
     static let identifier = String(describing: HisnulMuslimCell.self)
-    private var adkar_title = Label(.right, 30)
+    private var adkar_title = Label(textAlignment: .right, 30)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

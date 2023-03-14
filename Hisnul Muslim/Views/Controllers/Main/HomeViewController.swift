@@ -90,18 +90,6 @@ extension HomeViewController: HSMDelegate, UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let FAction = UIContextualAction(style: .normal, title: "Favorite") { _, _, completionHandler in
-            print("didTap.")
-            completionHandler(true)
-        }
-
-        FAction.backgroundColor = .orange.withAlphaComponent(0.4)
-        let configuration = UISwipeActionsConfiguration(actions: [FAction])
-        configuration.performsFirstActionWithFullSwipe = false
-        return configuration
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let activeArray = isSearching ? filterContents : vm.hs_mslm
         let selectedObj = activeArray[indexPath.row]

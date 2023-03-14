@@ -11,6 +11,16 @@
 		100704F329B8687F0061DF82 /* DetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100704F229B8687F0061DF82 /* DetailsCollectionViewCell.swift */; };
 		100704F529B870280061DF82 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100704F429B870280061DF82 /* UIView+Ext.swift */; };
 		100704F729BB92930061DF82 /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100704F629BB92930061DF82 /* UICollectionView.swift */; };
+		100704FD29BE4A440061DF82 /* PresentencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100704FC29BE4A440061DF82 /* PresentencyManager.swift */; };
+		1007050029C04CF00061DF82 /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100704FF29C04CF00061DF82 /* AlertVC.swift */; };
+		1007050229C04D3D0061DF82 /* AlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007050129C04D3D0061DF82 /* AlertContainerView.swift */; };
+		1007050529C04D8C0061DF82 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007050429C04D8C0061DF82 /* EmptyStateView.swift */; };
+		1007050729C04DBC0061DF82 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007050629C04DBC0061DF82 /* Constants.swift */; };
+		1007050929C054CE0061DF82 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007050829C054CE0061DF82 /* Button.swift */; };
+		1007050C29C05DB40061DF82 /* UIVC+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007050B29C05DB40061DF82 /* UIVC+Ext.swift */; };
+		1007050E29C05F130061DF82 /* AdkarFavoritesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007050D29C05F130061DF82 /* AdkarFavoritesListVC.swift */; };
+		1007051029C069F60061DF82 /* DataLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007050F29C069F60061DF82 /* DataLoading.swift */; };
+		1007051229C06B6A0061DF82 /* AdkarFavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007051129C06B6A0061DF82 /* AdkarFavoriteCell.swift */; };
 		102E72A529B286E700989610 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102E72A429B286E700989610 /* ViewModel.swift */; };
 		102E72A729B3886A00989610 /* hisnul_muslim.json in Resources */ = {isa = PBXBuildFile; fileRef = 102E72A629B3886A00989610 /* hisnul_muslim.json */; };
 		102E72A929B3BEE400989610 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102E72A829B3BEE400989610 /* MainTabBarController.swift */; };
@@ -34,6 +44,16 @@
 		100704F229B8687F0061DF82 /* DetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCollectionViewCell.swift; sourceTree = "<group>"; };
 		100704F429B870280061DF82 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		100704F629BB92930061DF82 /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
+		100704FC29BE4A440061DF82 /* PresentencyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentencyManager.swift; sourceTree = "<group>"; };
+		100704FF29C04CF00061DF82 /* AlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
+		1007050129C04D3D0061DF82 /* AlertContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertContainerView.swift; sourceTree = "<group>"; };
+		1007050429C04D8C0061DF82 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		1007050629C04DBC0061DF82 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		1007050829C054CE0061DF82 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		1007050B29C05DB40061DF82 /* UIVC+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVC+Ext.swift"; sourceTree = "<group>"; };
+		1007050D29C05F130061DF82 /* AdkarFavoritesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdkarFavoritesListVC.swift; sourceTree = "<group>"; };
+		1007050F29C069F60061DF82 /* DataLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoading.swift; sourceTree = "<group>"; };
+		1007051129C06B6A0061DF82 /* AdkarFavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdkarFavoriteCell.swift; sourceTree = "<group>"; };
 		102E72A429B286E700989610 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		102E72A629B3886A00989610 /* hisnul_muslim.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hisnul_muslim.json; sourceTree = "<group>"; };
 		102E72A829B3BEE400989610 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -65,6 +85,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		100704FB29BE456A0061DF82 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				100704FC29BE4A440061DF82 /* PresentencyManager.swift */,
+				1007050629C04DBC0061DF82 /* Constants.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		100704FE29C04CDB0061DF82 /* CustomVC */ = {
+			isa = PBXGroup;
+			children = (
+				100704FF29C04CF00061DF82 /* AlertVC.swift */,
+			);
+			name = CustomVC;
+			sourceTree = "<group>";
+		};
+		1007050329C04D710061DF82 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1007050129C04D3D0061DF82 /* AlertContainerView.swift */,
+				1007050429C04D8C0061DF82 /* EmptyStateView.swift */,
+				1007050F29C069F60061DF82 /* DataLoading.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1007050A29C054D20061DF82 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				1007050829C054CE0061DF82 /* Button.swift */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
 		102E72A329B286C900989610 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +134,7 @@
 				107A4514299821FE0095413D /* HomeViewController.swift */,
 				102E72AA29B3C1F900989610 /* SettingsViewController.swift */,
 				100704F029B85DEA0061DF82 /* DetailsViewController.swift */,
+				1007050D29C05F130061DF82 /* AdkarFavoritesListVC.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -88,6 +144,7 @@
 			children = (
 				102E72AD29B4466A00989610 /* HisnulMuslimCell.swift */,
 				100704F229B8687F0061DF82 /* DetailsCollectionViewCell.swift */,
+				1007051129C06B6A0061DF82 /* AdkarFavoriteCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -119,6 +176,7 @@
 		107A450F299821FE0095413D /* Hisnul Muslim */ = {
 			isa = PBXGroup;
 			children = (
+				100704FB29BE456A0061DF82 /* Helpers */,
 				10FE0F5F299F604C0024EDEA /* Extentions */,
 				10FE0F60299F60560024EDEA /* Models */,
 				102E72A329B286C900989610 /* View Model */,
@@ -148,6 +206,7 @@
 				102E72B329B51DFF00989610 /*  UITableView+Ext.swift */,
 				100704F629BB92930061DF82 /* UICollectionView.swift */,
 				100704F429B870280061DF82 /* UIView+Ext.swift */,
+				1007050B29C05DB40061DF82 /* UIVC+Ext.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -183,8 +242,11 @@
 		10FE0F63299F607D0024EDEA /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				100704FE29C04CDB0061DF82 /* CustomVC */,
 				102E72B229B44B1500989610 /* Label */,
 				102E72AF29B4466D00989610 /* Cell */,
+				1007050329C04D710061DF82 /* Views */,
+				1007050A29C054D20061DF82 /* Button */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -261,19 +323,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				100704F529B870280061DF82 /* UIView+Ext.swift in Sources */,
+				1007050929C054CE0061DF82 /* Button.swift in Sources */,
+				1007050729C04DBC0061DF82 /* Constants.swift in Sources */,
 				107A4515299821FE0095413D /* HomeViewController.swift in Sources */,
+				1007050E29C05F130061DF82 /* AdkarFavoritesListVC.swift in Sources */,
 				102E72A529B286E700989610 /* ViewModel.swift in Sources */,
 				100704F329B8687F0061DF82 /* DetailsCollectionViewCell.swift in Sources */,
 				102E72AB29B3C1F900989610 /* SettingsViewController.swift in Sources */,
 				102E72A929B3BEE400989610 /* MainTabBarController.swift in Sources */,
+				1007050529C04D8C0061DF82 /* EmptyStateView.swift in Sources */,
 				107A4511299821FE0095413D /* AppDelegate.swift in Sources */,
+				1007051229C06B6A0061DF82 /* AdkarFavoriteCell.swift in Sources */,
 				102E72B129B4469200989610 /* Label.swift in Sources */,
+				1007050229C04D3D0061DF82 /* AlertContainerView.swift in Sources */,
+				1007050C29C05DB40061DF82 /* UIVC+Ext.swift in Sources */,
+				1007050029C04CF00061DF82 /* AlertVC.swift in Sources */,
+				100704FD29BE4A440061DF82 /* PresentencyManager.swift in Sources */,
 				10DEFA4429B25BE6008801B7 /* Page.swift in Sources */,
 				10DEFA4229B25BCF008801B7 /* Content.swift in Sources */,
 				102E72AE29B4466A00989610 /* HisnulMuslimCell.swift in Sources */,
 				10FE0F5D299F4F5D0024EDEA /* Bundle+Ext.swift in Sources */,
 				10DEFA4029B25B6C008801B7 /* HisnulmuslimModel.swift in Sources */,
 				100704F129B85DEA0061DF82 /* DetailsViewController.swift in Sources */,
+				1007051029C069F60061DF82 /* DataLoading.swift in Sources */,
 				102E72B429B51DFF00989610 /*  UITableView+Ext.swift in Sources */,
 				107A4513299821FE0095413D /* SceneDelegate.swift in Sources */,
 				100704F729BB92930061DF82 /* UICollectionView.swift in Sources */,

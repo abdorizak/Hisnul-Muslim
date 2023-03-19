@@ -9,10 +9,11 @@ import UIKit
 
 class SchedulerNotificationViewController: UIViewController {
 
+    var content: Content!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .systemBackground
     }
     
 

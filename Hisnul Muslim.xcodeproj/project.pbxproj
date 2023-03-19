@@ -21,6 +21,7 @@
 		1007050E29C05F130061DF82 /* AdkarFavoritesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007050D29C05F130061DF82 /* AdkarFavoritesListVC.swift */; };
 		1007051029C069F60061DF82 /* DataLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007050F29C069F60061DF82 /* DataLoading.swift */; };
 		1007051229C06B6A0061DF82 /* AdkarFavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007051129C06B6A0061DF82 /* AdkarFavoriteCell.swift */; };
+		1007051B29C728560061DF82 /* SchedulerNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007051A29C728560061DF82 /* SchedulerNotificationViewController.swift */; };
 		102E72A529B286E700989610 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102E72A429B286E700989610 /* ViewModel.swift */; };
 		102E72A729B3886A00989610 /* hisnul_muslim.json in Resources */ = {isa = PBXBuildFile; fileRef = 102E72A629B3886A00989610 /* hisnul_muslim.json */; };
 		102E72A929B3BEE400989610 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102E72A829B3BEE400989610 /* MainTabBarController.swift */; };
@@ -54,6 +55,7 @@
 		1007050D29C05F130061DF82 /* AdkarFavoritesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdkarFavoritesListVC.swift; sourceTree = "<group>"; };
 		1007050F29C069F60061DF82 /* DataLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoading.swift; sourceTree = "<group>"; };
 		1007051129C06B6A0061DF82 /* AdkarFavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdkarFavoriteCell.swift; sourceTree = "<group>"; };
+		1007051A29C728560061DF82 /* SchedulerNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerNotificationViewController.swift; sourceTree = "<group>"; };
 		102E72A429B286E700989610 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		102E72A629B3886A00989610 /* hisnul_muslim.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hisnul_muslim.json; sourceTree = "<group>"; };
 		102E72A829B3BEE400989610 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				107A4514299821FE0095413D /* HomeViewController.swift */,
 				102E72AA29B3C1F900989610 /* SettingsViewController.swift */,
 				100704F029B85DEA0061DF82 /* DetailsViewController.swift */,
+				1007051A29C728560061DF82 /* SchedulerNotificationViewController.swift */,
 				1007050D29C05F130061DF82 /* AdkarFavoritesListVC.swift */,
 			);
 			path = Main;
@@ -327,6 +330,7 @@
 				1007050729C04DBC0061DF82 /* Constants.swift in Sources */,
 				107A4515299821FE0095413D /* HomeViewController.swift in Sources */,
 				1007050E29C05F130061DF82 /* AdkarFavoritesListVC.swift in Sources */,
+				1007051B29C728560061DF82 /* SchedulerNotificationViewController.swift in Sources */,
 				102E72A529B286E700989610 /* ViewModel.swift in Sources */,
 				100704F329B8687F0061DF82 /* DetailsCollectionViewCell.swift in Sources */,
 				102E72AB29B3C1F900989610 /* SettingsViewController.swift in Sources */,

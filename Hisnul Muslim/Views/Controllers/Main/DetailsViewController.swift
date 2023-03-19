@@ -22,7 +22,8 @@ class DetailsViewController: UIViewController {
     private func configureDetailViewController() {
         view.backgroundColor = .systemBackground
         let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFavorite))
-        navigationItem.rightBarButtonItem = addBtn
+        let notifyMe = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .done, target: self, action: #selector(notifyMe))
+        navigationItem.rightBarButtonItems = [notifyMe, addBtn]
         navigationItem.title = content.title
         configureCollectionView()
         configureDataSource()
@@ -58,6 +59,15 @@ class DetailsViewController: UIViewController {
             }
             self.presentAlert(title: "Something Wrong", message: error.rawValue, buttonTitle: "ok")
         }
+    }
+    
+    @objc func notifyMe() {
+        let schedulerVC = SchedulerNotificationViewController()
+        schedulerVC.content = self.content
+        schedulerVC.modalPresentationStyle = .pageSheet
+        schedulerVC.sheetPresentationController?.detents = [.medium()]
+        schedulerVC.sheetPresentationController?.prefersGrabberVisible = true
+        present(schedulerVC, animated: true)
     }
     
 }

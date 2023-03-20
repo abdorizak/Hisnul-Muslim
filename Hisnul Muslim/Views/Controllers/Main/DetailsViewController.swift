@@ -62,12 +62,28 @@ class DetailsViewController: UIViewController {
     }
     
     @objc func notifyMe() {
-        let schedulerVC = SchedulerNotificationViewController()
-        schedulerVC.content = self.content
-        schedulerVC.modalPresentationStyle = .pageSheet
-        schedulerVC.sheetPresentationController?.detents = [.medium()]
-        schedulerVC.sheetPresentationController?.prefersGrabberVisible = true
-        present(schedulerVC, animated: true)
+        // check if the user autorized to send notifications
+        if SchedulerNotifications.shared.isUserAllowNotification {
+            let schedulerVC = SchedulerNotificationViewController()
+            schedulerVC.content = self.content
+            schedulerVC.modalPresentationStyle = .pageSheet
+            schedulerVC.sheetPresentationController?.detents = [.medium()]
+            schedulerVC.sheetPresentationController?.preferredCornerRadius = 20
+            schedulerVC.sheetPresentationController?.prefersGrabberVisible = true
+            present(schedulerVC, animated: true)
+        } else {
+            let alertController = UIAlertController(title: "تعطيل الإخطارات!", message: "يرجى تمكين الإخطارات لهذا التطبيق في الإعدادات", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            alertController.addAction(UIAlertAction(title: "Settings", style: .default, handler: { _ in
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }))
+            DispatchQueue.main.async { [weak self] in
+                self?.present(alertController, animated: true, completion: nil)
+            }
+        }
+        
     }
     
 }

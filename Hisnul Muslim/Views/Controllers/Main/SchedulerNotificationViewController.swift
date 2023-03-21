@@ -47,7 +47,7 @@ class SchedulerNotificationViewController: UIViewController {
         ])
     }
     
-    @objc func g() {
+    @objc func didSchedule() {
         let selectedTime = timePicker.date
         let timeFormat = DateFormatter()
         timeFormat.timeStyle = .short

@@ -9,6 +9,9 @@ import Foundation
 
 extension String {
     
+    /// Custom Split function
+    /// - Parameter speretors: as parameter it takes array of character
+    /// - Returns: it returns an array of string
     func split(_ speretors: [Character]) -> [String] {
         var currentStr = self
         for speretor in speretors {

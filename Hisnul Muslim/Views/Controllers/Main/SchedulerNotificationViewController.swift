@@ -34,7 +34,7 @@ class SchedulerNotificationViewController: UIViewController {
     }
     
     private func configTimePickerAndButton() {
-        
+        notifyMeBtn.addTarget(self, action: #selector(didSchedule), for: .touchUpInside)
         NSLayoutConstraint.activate([
             timePicker.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             timePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -45,6 +45,21 @@ class SchedulerNotificationViewController: UIViewController {
             notifyMeBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             notifyMeBtn.heightAnchor.constraint(equalToConstant: 55)
         ])
+    }
+    
+    @objc func didSchedule() {
+        let selectedTime = timePicker.date
+        let timeFormat = DateFormatter()
+        timeFormat.timeStyle = .short
+        let selectedTimeString = timeFormat.string(from: selectedTime)
+        let components = selectedTimeString.split([":", " "])
+        let hour = components[0]
+        let minute = components[1]
+        let amPm = components[2]
+        print(hour)
+        print(minute)
+        print(amPm)
+        
     }
     
 }

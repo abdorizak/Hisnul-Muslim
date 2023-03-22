@@ -36,6 +36,7 @@
 		107A4515299821FE0095413D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107A4514299821FE0095413D /* HomeViewController.swift */; };
 		107A451A299821FF0095413D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 107A4519299821FF0095413D /* Assets.xcassets */; };
 		107A451D299821FF0095413D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 107A451B299821FF0095413D /* LaunchScreen.storyboard */; };
+		10A5E07C29CB78CC0001316C /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5E07B29CB78CC0001316C /* CoreDataHelper.swift */; };
 		10DEFA4029B25B6C008801B7 /* HisnulmuslimModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DEFA3F29B25B6C008801B7 /* HisnulmuslimModel.swift */; };
 		10DEFA4229B25BCF008801B7 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DEFA4129B25BCF008801B7 /* Content.swift */; };
 		10DEFA4429B25BE6008801B7 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DEFA4329B25BE6008801B7 /* Page.swift */; };
@@ -75,6 +76,7 @@
 		107A4519299821FF0095413D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		107A451C299821FF0095413D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		107A451E299821FF0095413D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10A5E07B29CB78CC0001316C /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		10DEFA3F29B25B6C008801B7 /* HisnulmuslimModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HisnulmuslimModel.swift; sourceTree = "<group>"; };
 		10DEFA4129B25BCF008801B7 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		10DEFA4329B25BE6008801B7 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				100704FC29BE4A440061DF82 /* PresentencyManager.swift */,
 				1007050629C04DBC0061DF82 /* Constants.swift */,
 				1007051F29C7328B0061DF82 /* NotificationManager.swift */,
+				10A5E07B29CB78CC0001316C /* CoreDataHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				100704F129B85DEA0061DF82 /* DetailsViewController.swift in Sources */,
 				1007051029C069F60061DF82 /* DataLoading.swift in Sources */,
 				102E72B429B51DFF00989610 /*  UITableView+Ext.swift in Sources */,
+				10A5E07C29CB78CC0001316C /* CoreDataHelper.swift in Sources */,
 				107A4513299821FE0095413D /* SceneDelegate.swift in Sources */,
 				100704F729BB92930061DF82 /* UICollectionView.swift in Sources */,
 			);
@@ -505,6 +509,7 @@
 				DEVELOPMENT_TEAM = 4QS25S2FVW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Hisnul Muslim/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Hisnul Muslim";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -518,6 +523,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.abdorizak.Hisnul-Muslim";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -535,6 +543,7 @@
 				DEVELOPMENT_TEAM = 4QS25S2FVW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Hisnul Muslim/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Hisnul Muslim";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -548,6 +557,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.abdorizak.Hisnul-Muslim";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

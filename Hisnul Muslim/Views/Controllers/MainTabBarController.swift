@@ -16,7 +16,7 @@ class MainTabBarController: UITabBarController {
     
     private func confgiTabBar() {
         view.backgroundColor = .systemBackground
-        viewControllers = [configHomeVC(), configFavorites()]
+        viewControllers = [configHomeVC(), configFavorites(), configSettingVC()]
         tabBar.selectionIndicatorImage = UIImage(named: "Selected")
         tabBar.layer.masksToBounds = true
         tabBar.layer.cornerRadius = 15
@@ -27,19 +27,19 @@ class MainTabBarController: UITabBarController {
     
     private func configHomeVC() -> UINavigationController {
         let homeVC = HomeViewController()
-        homeVC.tabBarItem.title = "Home"
+        homeVC.tabBarItem.title = "قائمة"
         homeVC.tabBarItem.image = UIImage(systemName: "book")
         homeVC.tabBarItem.selectedImage = UIImage(systemName: "book.fil")
         return UINavigationController(rootViewController: homeVC)
     }
     
-//    private func settingVC() -> UINavigationController {
-//        let settingVC = SettingsViewController()
-//        settingVC.tabBarItem.title = "Settings"
-//        settingVC.tabBarItem.image = UIImage(systemName: "gearshape")
-//        settingVC.tabBarItem.selectedImage = UIImage(systemName: "gearshape.fil")
-//        return UINavigationController(rootViewController: settingVC)
-//    }
+    private func configSettingVC() -> UINavigationController {
+        let settingVC = SettingsViewController()
+        settingVC.tabBarItem.title = "Settings"
+        settingVC.tabBarItem.image = UIImage(systemName: "gearshape")
+        settingVC.tabBarItem.selectedImage = UIImage(systemName: "gearshape.fil")
+        return UINavigationController(rootViewController: settingVC)
+    }
     
     private func configFavorites() -> UINavigationController {
         let favoriteVC = AdkarFavoritesListVC()

@@ -24,7 +24,7 @@
 		1007051B29C728560061DF82 /* SchedulerNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007051A29C728560061DF82 /* SchedulerNotificationViewController.swift */; };
 		1007051E29C72C2C0061DF82 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007051D29C72C2B0061DF82 /* String+Ext.swift */; };
 		1007052029C7328B0061DF82 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1007051F29C7328B0061DF82 /* NotificationManager.swift */; };
-		102E72A529B286E700989610 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102E72A429B286E700989610 /* ViewModel.swift */; };
+		102E72A529B286E700989610 /* HSMViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102E72A429B286E700989610 /* HSMViewModel.swift */; };
 		102E72A729B3886A00989610 /* hisnul_muslim.json in Resources */ = {isa = PBXBuildFile; fileRef = 102E72A629B3886A00989610 /* hisnul_muslim.json */; };
 		102E72A929B3BEE400989610 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102E72A829B3BEE400989610 /* MainTabBarController.swift */; };
 		102E72AB29B3C1F900989610 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102E72AA29B3C1F900989610 /* SettingsViewController.swift */; };
@@ -37,6 +37,13 @@
 		107A451A299821FF0095413D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 107A4519299821FF0095413D /* Assets.xcassets */; };
 		107A451D299821FF0095413D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 107A451B299821FF0095413D /* LaunchScreen.storyboard */; };
 		10A5E07C29CB78CC0001316C /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5E07B29CB78CC0001316C /* CoreDataHelper.swift */; };
+		10A5E07F29CB814B0001316C /* HSMSchedulerNotifications.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 10A5E07D29CB814B0001316C /* HSMSchedulerNotifications.xcdatamodeld */; };
+		10A5E08129CCAAB80001316C /* HSMSchedulerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5E08029CCAAB80001316C /* HSMSchedulerModel.swift */; };
+		10A5E08329CCAD260001316C /* HSMSchedulersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5E08229CCAD260001316C /* HSMSchedulersViewModel.swift */; };
+		10A5E08529CDB6620001316C /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5E08429CDB6620001316C /* SettingsCell.swift */; };
+		10A5E08929CDC60F0001316C /* TableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5E08829CDC60F0001316C /* TableViewHeader.swift */; };
+		10A5E08B29CE299B0001316C /* SchedulersListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5E08A29CE299B0001316C /* SchedulersListVC.swift */; };
+		10A5E08D29CE2AC20001316C /* SchedulersListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5E08C29CE2AC20001316C /* SchedulersListCell.swift */; };
 		10DEFA4029B25B6C008801B7 /* HisnulmuslimModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DEFA3F29B25B6C008801B7 /* HisnulmuslimModel.swift */; };
 		10DEFA4229B25BCF008801B7 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DEFA4129B25BCF008801B7 /* Content.swift */; };
 		10DEFA4429B25BE6008801B7 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DEFA4329B25BE6008801B7 /* Page.swift */; };
@@ -62,7 +69,7 @@
 		1007051C29C72C1B0061DF82 /* Hisnul Muslim.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Hisnul Muslim.entitlements"; sourceTree = "<group>"; };
 		1007051D29C72C2B0061DF82 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		1007051F29C7328B0061DF82 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
-		102E72A429B286E700989610 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		102E72A429B286E700989610 /* HSMViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSMViewModel.swift; sourceTree = "<group>"; };
 		102E72A629B3886A00989610 /* hisnul_muslim.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hisnul_muslim.json; sourceTree = "<group>"; };
 		102E72A829B3BEE400989610 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		102E72AA29B3C1F900989610 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +84,13 @@
 		107A451C299821FF0095413D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		107A451E299821FF0095413D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10A5E07B29CB78CC0001316C /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		10A5E07E29CB814B0001316C /* HSMSchedulerNotifications.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HSMSchedulerNotifications.xcdatamodel; sourceTree = "<group>"; };
+		10A5E08029CCAAB80001316C /* HSMSchedulerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSMSchedulerModel.swift; sourceTree = "<group>"; };
+		10A5E08229CCAD260001316C /* HSMSchedulersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSMSchedulersViewModel.swift; sourceTree = "<group>"; };
+		10A5E08429CDB6620001316C /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		10A5E08829CDC60F0001316C /* TableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeader.swift; sourceTree = "<group>"; };
+		10A5E08A29CE299B0001316C /* SchedulersListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulersListVC.swift; sourceTree = "<group>"; };
+		10A5E08C29CE2AC20001316C /* SchedulersListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulersListCell.swift; sourceTree = "<group>"; };
 		10DEFA3F29B25B6C008801B7 /* HisnulmuslimModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HisnulmuslimModel.swift; sourceTree = "<group>"; };
 		10DEFA4129B25BCF008801B7 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		10DEFA4329B25BE6008801B7 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
@@ -119,6 +133,7 @@
 				1007050129C04D3D0061DF82 /* AlertContainerView.swift */,
 				1007050429C04D8C0061DF82 /* EmptyStateView.swift */,
 				1007050F29C069F60061DF82 /* DataLoading.swift */,
+				10A5E08829CDC60F0001316C /* TableViewHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -134,7 +149,8 @@
 		102E72A329B286C900989610 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
-				102E72A429B286E700989610 /* ViewModel.swift */,
+				102E72A429B286E700989610 /* HSMViewModel.swift */,
+				10A5E08229CCAD260001316C /* HSMSchedulersViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -146,6 +162,7 @@
 				102E72AA29B3C1F900989610 /* SettingsViewController.swift */,
 				100704F029B85DEA0061DF82 /* DetailsViewController.swift */,
 				1007051A29C728560061DF82 /* SchedulerNotificationViewController.swift */,
+				10A5E08A29CE299B0001316C /* SchedulersListVC.swift */,
 				1007050D29C05F130061DF82 /* AdkarFavoritesListVC.swift */,
 			);
 			path = Main;
@@ -157,6 +174,8 @@
 				102E72AD29B4466A00989610 /* HisnulMuslimCell.swift */,
 				100704F229B8687F0061DF82 /* DetailsCollectionViewCell.swift */,
 				1007051129C06B6A0061DF82 /* AdkarFavoriteCell.swift */,
+				10A5E08C29CE2AC20001316C /* SchedulersListCell.swift */,
+				10A5E08429CDB6620001316C /* SettingsCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -172,6 +191,7 @@
 		107A4504299821FE0095413D = {
 			isa = PBXGroup;
 			children = (
+				10A5E07D29CB814B0001316C /* HSMSchedulerNotifications.xcdatamodeld */,
 				107A450F299821FE0095413D /* Hisnul Muslim */,
 				107A450E299821FE0095413D /* Products */,
 			);
@@ -231,6 +251,7 @@
 				10DEFA3F29B25B6C008801B7 /* HisnulmuslimModel.swift */,
 				10DEFA4129B25BCF008801B7 /* Content.swift */,
 				10DEFA4329B25BE6008801B7 /* Page.swift */,
+				10A5E08029CCAAB80001316C /* HSMSchedulerModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -336,19 +357,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10A5E08929CDC60F0001316C /* TableViewHeader.swift in Sources */,
 				100704F529B870280061DF82 /* UIView+Ext.swift in Sources */,
 				1007050929C054CE0061DF82 /* Button.swift in Sources */,
 				1007050729C04DBC0061DF82 /* Constants.swift in Sources */,
+				10A5E08329CCAD260001316C /* HSMSchedulersViewModel.swift in Sources */,
 				1007051E29C72C2C0061DF82 /* String+Ext.swift in Sources */,
 				107A4515299821FE0095413D /* HomeViewController.swift in Sources */,
 				1007050E29C05F130061DF82 /* AdkarFavoritesListVC.swift in Sources */,
 				1007051B29C728560061DF82 /* SchedulerNotificationViewController.swift in Sources */,
-				102E72A529B286E700989610 /* ViewModel.swift in Sources */,
+				102E72A529B286E700989610 /* HSMViewModel.swift in Sources */,
 				100704F329B8687F0061DF82 /* DetailsCollectionViewCell.swift in Sources */,
 				102E72AB29B3C1F900989610 /* SettingsViewController.swift in Sources */,
 				102E72A929B3BEE400989610 /* MainTabBarController.swift in Sources */,
 				1007050529C04D8C0061DF82 /* EmptyStateView.swift in Sources */,
 				1007052029C7328B0061DF82 /* NotificationManager.swift in Sources */,
+				10A5E08529CDB6620001316C /* SettingsCell.swift in Sources */,
 				107A4511299821FE0095413D /* AppDelegate.swift in Sources */,
 				1007051229C06B6A0061DF82 /* AdkarFavoriteCell.swift in Sources */,
 				102E72B129B4469200989610 /* Label.swift in Sources */,
@@ -358,15 +382,19 @@
 				100704FD29BE4A440061DF82 /* PresentencyManager.swift in Sources */,
 				10DEFA4429B25BE6008801B7 /* Page.swift in Sources */,
 				10DEFA4229B25BCF008801B7 /* Content.swift in Sources */,
+				10A5E08D29CE2AC20001316C /* SchedulersListCell.swift in Sources */,
 				102E72AE29B4466A00989610 /* HisnulMuslimCell.swift in Sources */,
 				10FE0F5D299F4F5D0024EDEA /* Bundle+Ext.swift in Sources */,
 				10DEFA4029B25B6C008801B7 /* HisnulmuslimModel.swift in Sources */,
+				10A5E08129CCAAB80001316C /* HSMSchedulerModel.swift in Sources */,
 				100704F129B85DEA0061DF82 /* DetailsViewController.swift in Sources */,
 				1007051029C069F60061DF82 /* DataLoading.swift in Sources */,
+				10A5E08B29CE299B0001316C /* SchedulersListVC.swift in Sources */,
 				102E72B429B51DFF00989610 /*  UITableView+Ext.swift in Sources */,
 				10A5E07C29CB78CC0001316C /* CoreDataHelper.swift in Sources */,
 				107A4513299821FE0095413D /* SceneDelegate.swift in Sources */,
 				100704F729BB92930061DF82 /* UICollectionView.swift in Sources */,
+				10A5E07F29CB814B0001316C /* HSMSchedulerNotifications.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +616,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		10A5E07D29CB814B0001316C /* HSMSchedulerNotifications.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				10A5E07E29CB814B0001316C /* HSMSchedulerNotifications.xcdatamodel */,
+			);
+			currentVersion = 10A5E07E29CB814B0001316C /* HSMSchedulerNotifications.xcdatamodel */;
+			path = HSMSchedulerNotifications.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 107A4505299821FE0095413D /* Project object */;
 }

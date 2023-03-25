@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - HSM Protocol
 protocol HSMDelegate: AnyObject {
-    func didFinish()
+    func didFinishLoadingHSMData()
 }
 
 class HSMViewModel {
@@ -27,7 +27,7 @@ class HSMViewModel {
     func getHSMData() {
         let data = self.getHisnulmuslimData()
         self.hs_mslm = data.content
-        self.delegate?.didFinish()
+        self.delegate?.didFinishLoadingHSMData()
     }
     
     func getHisnulmuslimData() -> HisnulmuslimModel {

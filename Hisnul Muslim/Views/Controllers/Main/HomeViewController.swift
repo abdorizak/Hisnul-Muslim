@@ -66,7 +66,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: HSMDelegate, UITableViewDelegate {
     
-    func didFinish() {
+    func didFinishLoadingHSMData() {
         updateData(on: vm.hs_mslm)
         tableView.reloadDataOnMainThread()
     }

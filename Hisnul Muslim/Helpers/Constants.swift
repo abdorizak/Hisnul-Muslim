@@ -10,6 +10,8 @@ import UIKit
 
 enum Images {
     static let emptyState   = UIImage(systemName: "text.book.closed")
+    static let timeScheduled = UIImage(systemName: "bell.square.fill")
+    static let bookInfo = UIImage(systemName: "book.closed.fill")
 }
 
 

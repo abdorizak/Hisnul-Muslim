@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct HSMSchedulers {
+    let id: UUID?
+    let name: String?
+    let hour: Int?
+    let minute: Int?
+}

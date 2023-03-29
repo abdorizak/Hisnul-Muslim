@@ -9,7 +9,7 @@ import Foundation
 
 struct HSMSchedulers {
     let id: UUID?
-    let name: String?
-    let hour: Int?
-    let minute: Int?
+    let adkarName: String?
+    let hour: String?
+    let minute: String?
 }

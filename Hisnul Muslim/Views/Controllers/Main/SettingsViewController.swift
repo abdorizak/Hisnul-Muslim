@@ -19,7 +19,12 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
     }
     private var models: [Sections] = []
-    private var tableView: UITableView!
+    private let tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
+        return tableView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +33,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        tableView.frame = view.bounds
         configTableHeaderView()
     }
     
@@ -35,9 +41,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         view.backgroundColor = .systemBackground
         title = "اختيارات"
         navigationController?.navigationBar.prefersLargeTitles = true
-        tableView = UITableView(frame: view.bounds, style: .insetGrouped)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(SettingsTableViewCell.self, forCellReuseIdentifier: SettingsTableViewCell.identifier)
         view.addSubview(tableView)
         tableView.dataSource = self
         tableView.delegate = self
@@ -50,9 +53,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             SettingOptions(icon: Images.timeScheduled, title: "إشعارات", handler: {
                 // Go to the Schedulers Notifications
                 let schedulersVC = SchedulersListVC()
-                schedulersVC.modalTransitionStyle = .coverVertical
-                schedulersVC.modalPresentationStyle = .pageSheet
-                self.present(schedulersVC, animated: true)
+                return self.navigationController?.pushViewController(schedulersVC, animated: true)
                 
             }),
             SettingOptions(icon: Images.bookInfo, title: "معلومات الكتاب", handler: {
@@ -68,7 +69,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     private func configTableHeaderView() {
-        let headerView = SettingTableHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 250))
+        let headerView = SettingTableHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 250))
         tableView.tableHeaderView = headerView
     }
     

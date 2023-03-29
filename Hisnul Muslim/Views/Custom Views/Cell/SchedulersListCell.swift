@@ -39,7 +39,7 @@ class SchedulersListCell: UITableViewCell {
     }
     
     func displayData(list of: HSMSchedulers) {
-        adkar_title.text = of.name
+        adkar_title.text = of.adkarName
     }
 
 }

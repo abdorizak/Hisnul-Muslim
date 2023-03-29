@@ -9,7 +9,7 @@ import UIKit
 
 class SchedulersListVC: HSDataLoadingVC, SchedulerDelegate  {
 
-    private let tableView                     = UITableView()
+    private let tableView                     = UITableView(frame: .zero)
     private var schedulersList                = [HSMSchedulers]()
     private let vm                            = HSMSchedulerViewModel()
     
@@ -22,14 +22,20 @@ class SchedulersListVC: HSDataLoadingVC, SchedulerDelegate  {
     
     func configureViewController() {
         view.backgroundColor    = .systemBackground
-        title                   = "المفضلات"
+        title                   = "إشعارات"
         navigationController?.navigationBar.prefersLargeTitles = true
-        view.addSubview(tableView)
         vm.delegate = self
+        vm.fetchSchedulersData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        vm.fetchSchedulersData()
     }
     
     
     func configureTableView() {
+        view.addSubview(tableView)
         tableView.frame         = view.bounds
         tableView.rowHeight     = 44
         tableView.delegate      = self
@@ -37,6 +43,7 @@ class SchedulersListVC: HSDataLoadingVC, SchedulerDelegate  {
         tableView.removeExcessCells()
         
         tableView.register(SchedulersListCell.self, forCellReuseIdentifier: SchedulersListCell.identifier)
+        
     }
     
     func didFinishLoadingSchedulers() {

@@ -11,12 +11,6 @@ enum PersistenceActionType {
     case add, remove
 }
 
-enum HSErrors: String, Error {
-    case alreadyInFavorite = "Already In Favorite.."
-    case unableToFavorite = "Unable To Favorate"
-    case invalidContext = "invalidContext...."
-}
-
 enum PersistenceManager {
     static private let defaults = UserDefaults.standard
     

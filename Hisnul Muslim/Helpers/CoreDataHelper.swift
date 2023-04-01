@@ -18,20 +18,6 @@ final class HSMCoreDataHelper {
         context = appDelegate?.persistentContainer.viewContext
     }
     
-//    func fetchData() -> [HSMSchedulers]? {
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HSMSchedulerNotifications")
-//        do {
-//            guard let result = try context?.fetch(fetchRequest) as? [HSMSchedulers] else {
-//                return nil
-//            }
-//            print(result)
-//            return result
-//        } catch {
-//            print("Failed to fetch data: \(error.localizedDescription)")
-//            return nil
-//        }
-//    }
-    
     func fetchData(completion: @escaping (Result<[NSManagedObject], Error>) -> Void) {
         guard let context = context else {
             completion(.failure(HSErrors.invalidContext))
@@ -40,18 +26,18 @@ final class HSMCoreDataHelper {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HSMSchedulerNotifications")
         do {
             let result = try context.fetch(fetchRequest) as! [NSManagedObject]
+            if result.isEmpty {
+                completion(.success([]))
+                return
+            }
             let scheduler = result.first!
             scheduler.willAccessValue(forKey: nil)
-//            print("ABC: \(scheduler)")
             completion(.success(result))
         } catch {
             print("Failed to fetch data: \(error.localizedDescription)")
             completion(.failure(error))
         }
     }
-
-
-
     
     func insert(id: Int, adkarName: String, hour: Int, minute: Int) -> String {
         guard let entity = NSEntityDescription.entity(forEntityName: "HSMSchedulerNotifications", in: context!) else {
@@ -73,20 +59,20 @@ final class HSMCoreDataHelper {
         }
     }
     
-    func insert(adkarName: String, hour: String, minute: String) -> String {
+    func insert(adkarName: String, hour: String, minute: String) -> (success: Bool, message: String, id: String?) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HSMSchedulerNotifications")
         fetchRequest.predicate = NSPredicate(format: "adkarName == %@", adkarName)
         do {
             let results = try context?.fetch(fetchRequest)
             if results?.count ?? 0 > 0 {
-                return "Failed to save data: record with adkarName \(adkarName) already exists"
+                return (false, "Failed to save data: record with adkarName \(adkarName) already exists", nil)
             }
         } catch {
-            return "Failed to save data: \(error.localizedDescription)"
+            return (false, "Failed to save data: \(error.localizedDescription)", nil)
         }
 
         guard let entity = NSEntityDescription.entity(forEntityName: "HSMSchedulerNotifications", in: context!) else {
-            return "Failed to save data: entity not found"
+            return (false, "Failed to save data: entity not found", nil)
         }
         let dataObject = NSManagedObject(entity: entity, insertInto: context)
         let id = UUID()
@@ -96,27 +82,32 @@ final class HSMCoreDataHelper {
         dataObject.setValue(minute, forKey: "minute")
         do {
             try context?.save()
-            return "Data saved successfully."
+            return (true, "Data saved successfully.", id.uuidString)
         } catch {
-            return "Failed to save data: \(error.localizedDescription)"
+            return (false, "Failed to save data: \(error.localizedDescription)", nil)
         }
     }
 
-    
-    func update(dataObject: NSManagedObject, adkarName: String, hour: String, minute: String) -> String {
-        dataObject.setValue(adkarName, forKey: "adkarName")
-        dataObject.setValue(hour, forKey: "hour")
-        dataObject.setValue(minute, forKey: "minute")
-        var msg: String = ""
+
+    func deleteRecord(withID id: UUID, completion: @escaping (Result<Void, Error>) -> Void) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HSMSchedulerNotifications")
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+
         do {
+            let results = try context?.fetch(fetchRequest) as? [NSManagedObject]
+            guard let record = results?.first else {
+                let error = NSError(domain: "com.abdorizak.Hisnul-Muslim", code: 404, userInfo: [NSLocalizedDescriptionKey: "Record not found"])
+                completion(.failure(error))
+                return
+            }
+            context?.delete(record)
             try context?.save()
-            msg = "Data updated successfully."
-            return msg
+            completion(.success(()))
         } catch {
-            msg = "Failed to update data: \(error.localizedDescription)"
-            return msg
+            completion(.failure(error))
         }
     }
-    
+
+ 
 }
 

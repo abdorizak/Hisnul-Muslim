@@ -8,7 +8,7 @@
 import UIKit
 
 class SchedulerNotificationViewController: UIViewController {
-
+    
     var content: Content!
     private lazy var timePicker: UIDatePicker = {
         let picker = UIDatePicker()
@@ -55,11 +55,31 @@ class SchedulerNotificationViewController: UIViewController {
         let components = selectedTimeString.split([":", " "])
         let hour = components[0]
         let minute = components[1]
-        let amPm = components[2]
-        print(hour)
-        print(minute)
-        print(amPm)
-        
+        // Save Date in CoreData
+        let result = HSMCoreDataHelper.shared.insert(adkarName: content.title, hour: hour, minute: minute)
+        if result.success {
+            // Schedule daily notification
+            let savedId = result.id!
+            SchedulerNotifications.shared.scheduleDailyNotification(identifier: savedId, hour: Int(hour) ?? 0, minute: Int(minute) ?? 0, AdkarContent: content.title) { message in
+                if let message = message {
+                    // present Alert if there is an error scheduling notification
+                    DispatchQueue.main.async {
+                        self.presentAlert(title: "نجاح", message: message, buttonTitle: "حسنا")
+                    }
+                } else {
+                    // present Alert if notification scheduled successfully
+                    DispatchQueue.main.async {
+                        self.presentAlert(title: "⛔️", message: "حدث خطأ ما", buttonTitle: "حسنا")
+                    }
+                }
+            }
+        } else {
+            // present Alert if there is an error saving data to CoreData
+            DispatchQueue.main.async {
+                self.presentAlert(title: "هل هناك خطأ ما!", message: result.message, buttonTitle: "حسنا")
+            }
+        }
     }
+    
     
 }

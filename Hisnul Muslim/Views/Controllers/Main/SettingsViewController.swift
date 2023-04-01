@@ -57,7 +57,10 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 
             }),
             SettingOptions(icon: Images.bookInfo, title: "معلومات الكتاب", handler: {
-                //
+                let aboutVC = AboutViewController()
+                aboutVC.modalTransitionStyle = .crossDissolve
+                aboutVC.modalPresentationStyle = .pageSheet
+                self.present(aboutVC, animated: true)
             })
         ]))
         NSLayoutConstraint.activate([

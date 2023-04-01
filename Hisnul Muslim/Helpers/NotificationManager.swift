@@ -23,11 +23,14 @@ final class SchedulerNotifications {
         return isAuthorized
     }
     
-    
-    func scheduleDailyNotification(hour: Int, minute: Int, title: String, AdkarContent: Content) -> String {
+    func scheduleDailyNotification(identifier: String, hour: Int, minute: Int, AdkarContent: String, completion: @escaping (String?) -> Void) {
+        guard let uuid = UUID(uuidString: identifier) else {
+            completion("Invalid identifier")
+            return
+        }
         let content = UNMutableNotificationContent()
-        content.title = AdkarContent.title
-        content.body = ""
+        content.title = AdkarContent
+        content.body = "لقد طلبت منا تذكيرهذه الأذكار:\(AdkarContent)"
         content.sound = UNNotificationSound.default
         
         var dateComponents = DateComponents()
@@ -35,16 +38,16 @@ final class SchedulerNotifications {
         dateComponents.minute = Int(minute)
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        let request = UNNotificationRequest(identifier: "daily-notification", content: content, trigger: trigger)
-        var message: String?
+        let request = UNNotificationRequest(identifier: uuid.uuidString, content: content, trigger: trigger)
+        
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
-                message = "Error scheduling notification: \(error.localizedDescription)"
+                completion("Error scheduling notification: \(error.localizedDescription)")
             } else {
-                message = "لقد طلبت إرسال إشعار بخصوص هذا الإعلان:\(AdkarContent.title) ، سنرسل لك الشكر"
+                completion("لقد طلبت إرسال إشعار بخصوص هذا الإعلان:\(AdkarContent) ، سنرسل لك الشكر")
             }
         }
-        return message ?? "N/A"
     }
-    
+
+
 }

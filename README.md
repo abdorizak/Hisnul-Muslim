@@ -1,0 +1,63 @@
+<h1 style="margin-right: 100px;" align="center"> <img src="https://github.com/abdorizak/Hisnul-Muslim/blob/main/Hisnul%20Muslim/Resources/Assets.xcassets/AppIcon.appiconset/Hisnul_Muslim_Icon%401024.png"
+  width="128"
+  height="128"
+  style="float:left;">
+  حِصن المسلمِ
+</h1>
+<p align="center">
+  <img alt="GitHub" src="https://img.shields.io/github/languages/code-size/abdorizak/Hisnul-Muslim?color=blueviolet">
+  <img alt="GitHub" src="https://img.shields.io/github/last-commit/abdorizak/Hisnul-Muslim?color=blueviolet">
+  <img alt="GitHub" src="https://img.shields.io/github/languages/top/abdorizak/Hisnul-Muslim?color=blueviolet">
+</p>
+
+</br>
+
+## Introduction
+
+**`Hisnul Muslim iOS App`** is a digital version of the popular book of supplications and prayers for Muslims. It provides easy access to a collection of authentic prayers and supplications that are derived from the Quran and Sunnah, which are the teachings and practices of the Prophet Muhammad (peace be upon him).
+
+The app features a user-friendly interface with supplications organized thematically, covering topics such as morning and evening supplications, prayers for specific occasions, and supplications for protection and seeking guidance.
+
+The "حِصن المسلمِ" app is designed to be a convenient tool for Muslims to have access to a collection of authentic supplications at their fingertips, whether at home, work, or on-the-go.
+
+![Hisnul Muslim App](./Image.png)
+
+## Features
+
+- [x] 100+ supplications
+- [x] Swif `%100`
+- [x] UIKit.
+- [x] MVVM design pattern.
+- [x] Bookmark supplications.
+- [x] Search supplications.
+- [x] Notification supplications based on user's time request Using `UNUserNotificationCenter`.
+- [x] Store supplications in `Core Data` with Notification time.
+- [x] Supports iPhone and iPad.
+- [x] Supports iOS 15.0 and above.
+- [x] Dark Mode and Light Mode.
+
+
+## Requirements
+
+- iOS 15.0+
+- Xcode 13.0+
+- Swift 5.0+
+
+
+## why I created this app?
+
+the main reason I created this app is give free access to supplications and prayers for Muslims without any ads or in-app purchases, and I hope this app will help you to learn more about the supplications and prayers.
+
+## Contributing
+
+If you have any suggestions or ideas, please feel free to open an issue or pull request.
+
+but before that, please read the [contribution guidelines](./CONTRIBUTING.md) first.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+## Author
+
+- [Abdorizak Abdalla 🍎](https://linkedin.com/in/abdorizak)

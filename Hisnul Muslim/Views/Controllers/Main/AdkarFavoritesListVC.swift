@@ -11,7 +11,7 @@ class AdkarFavoritesListVC: HSDataLoadingVC {
     
     let tableView               = UITableView()
     var favorites: [Content]    = []
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,13 +51,12 @@ class AdkarFavoritesListVC: HSDataLoadingVC {
             guard let self = self else { return }
             
             switch result {
-                case .success(let favorites):
-                    self.updateUI(with: favorites)
-                    
-                case .failure(let error):
-                    DispatchQueue.main.async {
-                        self.presentAlert(title: "هناك خطأ ما", message: error.rawValue, buttonTitle: "Ok")
-                    }
+            case .success(let favorites):
+                self.updateUI(with: favorites)
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.presentAlert(title: "هناك خطأ ما", message: error.rawValue, buttonTitle: "Ok")
+                }
             }
         }
     }
@@ -93,10 +92,10 @@ extension AdkarFavoritesListVC: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let favorite    = favorites[indexPath.row]
-//        let destVC      = (username: favorite.login)
+        //        let favorite    = favorites[indexPath.row]
+        //        let destVC      = (username: favorite.login)
         
-//        navigationController?.pushViewController(destVC, animated: true)
+        //        navigationController?.pushViewController(destVC, animated: true)
     }
     
     

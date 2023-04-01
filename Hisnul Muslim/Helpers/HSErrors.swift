@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+enum HSErrors: String, Error {
+    case alreadyInFavorite = "Already In Favorite.."
+    case unableToFavorite = "Unable To Favorate"
+    case invalidContext = "invalidContext...."
+}

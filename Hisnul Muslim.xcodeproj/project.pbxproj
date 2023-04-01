@@ -48,6 +48,7 @@
 		10DEFA4029B25B6C008801B7 /* HisnulmuslimModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DEFA3F29B25B6C008801B7 /* HisnulmuslimModel.swift */; };
 		10DEFA4229B25BCF008801B7 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DEFA4129B25BCF008801B7 /* Content.swift */; };
 		10DEFA4429B25BE6008801B7 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DEFA4329B25BE6008801B7 /* Page.swift */; };
+		10E96D7129D83A19007B80C4 /* HSErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E96D7029D83A19007B80C4 /* HSErrors.swift */; };
 		10FE0F5D299F4F5D0024EDEA /* Bundle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FE0F5C299F4F5D0024EDEA /* Bundle+Ext.swift */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +97,9 @@
 		10DEFA3F29B25B6C008801B7 /* HisnulmuslimModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HisnulmuslimModel.swift; sourceTree = "<group>"; };
 		10DEFA4129B25BCF008801B7 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		10DEFA4329B25BE6008801B7 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		10E96D6D29D834A8007B80C4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		10E96D6E29D834D1007B80C4 /* Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Image.png; sourceTree = "<group>"; };
+		10E96D7029D83A19007B80C4 /* HSErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSErrors.swift; sourceTree = "<group>"; };
 		10FE0F5C299F4F5D0024EDEA /* Bundle+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,10 +117,9 @@
 		100704FB29BE456A0061DF82 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				100704FC29BE4A440061DF82 /* PresentencyManager.swift */,
 				1007050629C04DBC0061DF82 /* Constants.swift */,
-				1007051F29C7328B0061DF82 /* NotificationManager.swift */,
-				10A5E07B29CB78CC0001316C /* CoreDataHelper.swift */,
+				10E96D7029D83A19007B80C4 /* HSErrors.swift */,
+				10E96D6F29D839E7007B80C4 /* Managers */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -194,6 +197,8 @@
 		107A4504299821FE0095413D = {
 			isa = PBXGroup;
 			children = (
+				10E96D6D29D834A8007B80C4 /* README.md */,
+				10E96D6E29D834D1007B80C4 /* Image.png */,
 				10A5E07D29CB814B0001316C /* HSMSchedulerNotifications.xcdatamodeld */,
 				107A450F299821FE0095413D /* Hisnul Muslim */,
 				107A450E299821FE0095413D /* Products */,
@@ -221,6 +226,16 @@
 				107A451E299821FF0095413D /* Info.plist */,
 			);
 			path = "Hisnul Muslim";
+			sourceTree = "<group>";
+		};
+		10E96D6F29D839E7007B80C4 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				100704FC29BE4A440061DF82 /* PresentencyManager.swift */,
+				1007051F29C7328B0061DF82 /* NotificationManager.swift */,
+				10A5E07B29CB78CC0001316C /* CoreDataHelper.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		10FE0F5E299F60350024EDEA /* Resources */ = {
@@ -377,6 +392,7 @@
 				1007052029C7328B0061DF82 /* NotificationManager.swift in Sources */,
 				10A5E08529CDB6620001316C /* SettingsCell.swift in Sources */,
 				107A4511299821FE0095413D /* AppDelegate.swift in Sources */,
+				10E96D7129D83A19007B80C4 /* HSErrors.swift in Sources */,
 				1007051229C06B6A0061DF82 /* AdkarFavoriteCell.swift in Sources */,
 				102E72B129B4469200989610 /* Label.swift in Sources */,
 				1007050229C04D3D0061DF82 /* AlertContainerView.swift in Sources */,

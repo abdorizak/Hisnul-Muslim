@@ -23,6 +23,7 @@ class HomeViewController: UIViewController {
     }
     
     private func configureHomeVC() {
+        UNUserNotificationCenter.current().delegate = self
         view.backgroundColor = .systemBackground
         configNavBar()
         ConfigureSearchController()
@@ -58,13 +59,13 @@ class HomeViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
 
 }
 
-extension HomeViewController: HSMDelegate, UITableViewDelegate {
+extension HomeViewController: HSMDelegate, UITableViewDelegate, UNUserNotificationCenterDelegate {
     
     func didFinishLoadingHSMData() {
         updateData(on: vm.hs_mslm)
@@ -95,10 +96,10 @@ extension HomeViewController: HSMDelegate, UITableViewDelegate {
         let selectedObj = activeArray[indexPath.row]
         let detailVC = DetailsViewController()
         detailVC.content = selectedObj
-        detailVC.modalTransitionStyle = .coverVertical
-        detailVC.modalPresentationStyle = .pageSheet
-        let navigationC = UINavigationController(rootViewController: detailVC)
-        present(navigationC, animated: true)
+        let navigationController = UINavigationController(rootViewController: detailVC)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.modalTransitionStyle = .coverVertical
+        present(navigationController, animated: true, completion: nil)
     }
     
 }

@@ -66,33 +66,6 @@ class SchedulersListCell: UITableViewCell {
         timeView.layer.cornerRadius = 12
     }
     
-//    private func cellConfig() {
-//        contentView.addSubview(adkar_title)
-//        adkar_title.numberOfLines = 0
-//
-//        contentView.addSubview(timeView)
-//        timeView.translatesAutoresizingMaskIntoConstraints = false
-//        timeView.backgroundColor = UIColor.random()
-//        timeView.addSubview(hourLabel)
-//        timeView.addSubview(minuteLabel)
-//
-//        NSLayoutConstraint.activate([
-//            adkar_title.topAnchor.constraint(equalToSystemSpacingBelow: contentView.layoutMarginsGuide.topAnchor, multiplier: 1),
-//            adkar_title.trailingAnchor.constraint(equalToSystemSpacingAfter: contentView.layoutMarginsGuide.trailingAnchor, multiplier: 1),
-//            adkar_title.leadingAnchor.constraint(equalToSystemSpacingAfter: contentView.layoutMarginsGuide.leadingAnchor, multiplier: 1),
-//            timeView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-//            timeView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-//            timeView.widthAnchor.constraint(equalToConstant: 120),
-//            timeView.heightAnchor.constraint(equalToConstant: 40),
-//            hourLabel.topAnchor.constraint(equalTo: timeView.topAnchor),
-//            hourLabel.leadingAnchor.constraint(equalTo: timeView.leadingAnchor),
-//            hourLabel.trailingAnchor.constraint(equalTo: timeView.trailingAnchor),
-//            minuteLabel.bottomAnchor.constraint(equalTo: timeView.bottomAnchor),
-//            minuteLabel.leadingAnchor.constraint(equalTo: timeView.leadingAnchor),
-//            minuteLabel.trailingAnchor.constraint(equalTo: timeView.trailingAnchor),
-//        ])
-//    }
-    
     private func cellConfig() {
         contentView.addSubview(adkar_title)
         adkar_title.numberOfLines = 0

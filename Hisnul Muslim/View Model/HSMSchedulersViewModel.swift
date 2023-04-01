@@ -13,7 +13,7 @@ protocol SchedulerDelegate: AnyObject {
 
 final class HSMSchedulerViewModel {
     let schedulerdata = HSMCoreDataHelper()
-    private(set) var schedulers = [HSMSchedulers]()
+    var schedulers = [HSMSchedulers]()
     weak var delegate: SchedulerDelegate?
     init() { }
     
@@ -21,9 +21,8 @@ final class HSMSchedulerViewModel {
         self.schedulers[index]
     }
     
-    func fetchSchedulersData() {
-        schedulerdata.fetchData { [weak self] result in
-            guard let self = self else { return }
+    func fetchSchedulersData(completion: @escaping (Result<[HSMSchedulers], Error>) -> Void) {
+        schedulerdata.fetchData { result in
             switch result {
             case .success(let managedObjects):
                 var schedulers = [HSMSchedulers]()
@@ -38,14 +37,17 @@ final class HSMSchedulerViewModel {
                 }
                 self.schedulers = schedulers
                 self.delegate?.didFinishLoadingSchedulers()
+                completion(.success(schedulers))
             case .failure(let error):
-                print("Error fetching data: \(error.localizedDescription)")
+                completion(.failure(error))
             }
         }
     }
-
     
     
-    
+    // implement delete function and update the UI
+    func deleteNotification(withID id: UUID, completion: @escaping (Result<Void, Error>) -> Void) {
+        HSMCoreDataHelper.shared.deleteRecord(withID: id, completion: completion)
+    }
     
 }

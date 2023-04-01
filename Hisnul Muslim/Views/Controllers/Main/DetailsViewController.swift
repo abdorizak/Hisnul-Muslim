@@ -24,7 +24,9 @@ class DetailsViewController: UIViewController {
         let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFavorite))
         let notifyMe = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .done, target: self, action: #selector(notifyMe))
         navigationItem.rightBarButtonItems = [notifyMe, addBtn]
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), landscapeImagePhone: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(didTapBack))
         navigationItem.title = content.title
+//        navigationController?.navigationBar.prefersLargeTitles = false
         configureCollectionView()
         configureDataSource()
         updateUI()
@@ -34,13 +36,14 @@ class DetailsViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .tertiarySystemFill
         collectionView.register(DetailsCollectionViewCell.self, forCellWithReuseIdentifier: DetailsCollectionViewCell.identifier)
         view.addSubview(collectionView)
         collectionView.delegate = self
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -72,7 +75,7 @@ class DetailsViewController: UIViewController {
             schedulerVC.sheetPresentationController?.prefersGrabberVisible = true
             present(schedulerVC, animated: true)
         } else {
-            let alertController = UIAlertController(title: "تعطيل الإخطارات!", message: "يرجى تمكين الإخطارات لهذا التطبيق في الإعدادات", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "تحذير", message: "تحتاج إلى السماح للتطبيق بإرسال الإشعارات. يرجى الذهاب إلى إعدادات الجهاز لتمكين الإشعارات.", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             alertController.addAction(UIAlertAction(title: "Settings", style: .default, handler: { _ in
                 if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -84,6 +87,10 @@ class DetailsViewController: UIViewController {
             }
         }
         
+    }
+    
+    @objc func didTapBack() {
+        dismiss(animated: true, completion: nil)
     }
     
 }

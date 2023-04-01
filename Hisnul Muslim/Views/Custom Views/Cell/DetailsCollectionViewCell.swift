@@ -39,7 +39,7 @@ class DetailsCollectionViewCell: UICollectionViewCell {
     
     private func configDetailsViewCell() {
         contentView.addSubview(dua_details)
-        dua_details.backgroundColor = .systemBackground
+        dua_details.backgroundColor = .tertiarySystemBackground
         NSLayoutConstraint.activate([
             dua_details.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
             dua_details.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),

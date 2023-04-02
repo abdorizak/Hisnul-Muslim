@@ -92,10 +92,13 @@ extension AdkarFavoritesListVC: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        let favorite    = favorites[indexPath.row]
-        //        let destVC      = (username: favorite.login)
-        
-        //        navigationController?.pushViewController(destVC, animated: true)
+        let selectedObj = favorites[indexPath.item]
+        let detailVC = DetailsViewController()
+        detailVC.content = selectedObj
+        let navigationController = UINavigationController(rootViewController: detailVC)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.modalTransitionStyle = .coverVertical
+        present(navigationController, animated: true, completion: nil)
     }
     
     

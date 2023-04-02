@@ -102,6 +102,10 @@ extension HomeViewController: HSMDelegate, UITableViewDelegate, UNUserNotificati
         present(navigationController, animated: true, completion: nil)
     }
     
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .sound, .badge])
+    }
+     
 }
 
 extension HomeViewController: UISearchResultsUpdating {

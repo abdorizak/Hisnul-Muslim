@@ -20,6 +20,7 @@ class DetailsViewController: UIViewController {
     }
     
     private func configureDetailViewController() {
+        UNUserNotificationCenter.current().delegate = self
         view.backgroundColor = .systemBackground
         let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFavorite))
         let notifyMe = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .done, target: self, action: #selector(notifyMe))
@@ -57,10 +58,10 @@ class DetailsViewController: UIViewController {
             guard let self = self else { return }
             
             guard let error = error else {
-                self.presentAlert(title: "Success!", message: "You have successfull favorite this user 🎉", buttonTitle: "Ok")
+                self.presentAlert(title: "نجاح!", message: "لديك هذا المستخدم المفضل بنجاح 🎉", buttonTitle: "موافق")
                 return
             }
-            self.presentAlert(title: "Something Wrong", message: error.rawValue, buttonTitle: "ok")
+            self.presentAlert(title: "خطأ", message: error.rawValue, buttonTitle: "ok")
         }
     }
     
@@ -124,7 +125,11 @@ extension DetailsViewController {
     
 }
 
-extension DetailsViewController: UICollectionViewDelegateFlowLayout {
+extension DetailsViewController: UICollectionViewDelegateFlowLayout, UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .sound, .badge])
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.size.width, height: collectionView.bounds.height)

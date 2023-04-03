@@ -1,4 +1,4 @@
-<h1 style="margin-right: 100px;" align="center"> <img src="https://github.com/abdorizak/Hisnul-Muslim/blob/main/Hisnul%20Muslim/Resources/Assets.xcassets/AppIcon.appiconset/Hisnul_Muslim_Icon%401024.png"
+<h1 style="margin-right: 100px;" align="center"> <img src="https://github.com/abdorizak/Hisnul-Muslim/blob/main/Hisnul%20Muslim/Resources/Assets.xcassets/AppIcon.appiconset/1024.png"
   width="128"
   height="128"
   style="float:left;">

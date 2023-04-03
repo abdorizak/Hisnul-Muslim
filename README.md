@@ -26,13 +26,14 @@ The "حِصن المسلمِ" app is designed to be a convenient tool for Muslim
 
 - [x] 100+ supplications
 - [x] Swif `%100`
-- [x] UIKit.
+- [x] UIKit Programmatic UI.
 - [x] MVVM design pattern.
 - [x] Bookmark supplications.
 - [x] Search supplications.
 - [x] Notification supplications based on user's time request Using `UNUserNotificationCenter`.
 - [x] Store supplications in `Core Data` with Notification time.
 - [x] Supports iPhone and iPad.
+- [x] iPhone SE support.
 - [x] Supports iOS 15.0 and above.
 - [x] Dark Mode and Light Mode.
 
@@ -56,8 +57,19 @@ but before that, please read the [contribution guidelines](./CONTRIBUTING.md) fi
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE.md) file for details.
+
+## Download
+
+- [Hisnul Muslim iOS App](https://apps.apple.com/us/app/hisnul-muslim/id1449553519)
+
+## Contact
+
+- [LinkedIn](https://linkedin.com/in/abdorizak)
+- [Twitter](https://twitter.com/abdorizak)
+- [Gmail](mailto:cabdirizaaqyare12@gmail.com)
 
 ## Author
 
 - [Abdorizak Abdalla 🍎](https://linkedin.com/in/abdorizak)
+- © Copyright 2023 Abdorizak Abdalla. All rights reserved.

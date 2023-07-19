@@ -61,7 +61,7 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE.md)
 
 ## Download
 
-- [Hisnul Muslim iOS App](https://apps.apple.com/us/app/hisnul-muslim/id1449553519)
+- [Hisnul Muslim iOS App](https://apps.apple.com/us/app/hisnul-muslim/id6447127371)
 
 ## Contact
 

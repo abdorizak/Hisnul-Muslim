@@ -62,7 +62,23 @@ class HomeViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
-
+    
+    
+    override func updateContentUnavailableConfiguration(using state: UIContentUnavailableConfigurationState) {
+        if vm.hs_mslm.isEmpty {
+            var config = UIContentUnavailableConfiguration.empty()
+            config.text = "آسف!"
+            config.secondaryText = "حدث خطأ ما، وسوف نقوم بإصلاح هذه المشكلة."
+            config.image = UIImage(systemName: "book")
+            contentUnavailableConfiguration = config
+        } else if isSearching && filterContents.isEmpty {
+            contentUnavailableConfiguration = UIContentUnavailableConfiguration.search()
+        }
+        else {
+            contentUnavailableConfiguration = nil
+        }
+        
+    }
 }
 
 extension HomeViewController: HSMDelegate, UITableViewDelegate, UNUserNotificationCenterDelegate {
@@ -83,9 +99,11 @@ extension HomeViewController: HSMDelegate, UITableViewDelegate, UNUserNotificati
     }
     
     func updateData(on hsmContents: [Content]) {
+        debugPrint(hsmContents)
         var snapShot = NSDiffableDataSourceSnapshot<Section, Content>()
         snapShot.appendSections([.main])
         snapShot.appendItems(hsmContents)
+//        setNeedsUpdateContentUnavailableConfiguration()
         DispatchQueue.main.async {
             self.datasource.apply(snapShot, animatingDifferences: true)
         }
@@ -110,17 +128,41 @@ extension HomeViewController: HSMDelegate, UITableViewDelegate, UNUserNotificati
 
 extension HomeViewController: UISearchResultsUpdating {
     
+    func stripDiacritics(from text: String) -> String {
+        return text.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: Locale(identifier: "ar"))
+    }
+
+    func searchArabicText(query: String, inTitle title: String) -> Bool {
+        // Remove diacritics from the query
+        let normalizedQuery = stripDiacritics(from: query)
+
+        // Remove diacritics from the title for search
+        let normalizedTitleForSearch = stripDiacritics(from: title)
+
+        // Check if the normalized title contains the normalized query
+        return normalizedTitleForSearch.contains(normalizedQuery)
+    }
+
     func updateSearchResults(for searchController: UISearchController) {
         guard let filter = searchController.searchBar.text, !filter.isEmpty else {
             filterContents.removeAll()
-            isSearching = false
             updateData(on: vm.hs_mslm)
+            isSearching = false
             return
         }
         isSearching = true
-        filterContents = vm.hs_mslm.filter { $0.title.contains(filter) }
+        filterContents = vm.hs_mslm.filter { searchArabicText(query: filter, inTitle: $0.title) }
+        debugPrint(filterContents)
         updateData(on: filterContents)
+        setNeedsUpdateContentUnavailableConfiguration()
     }
-    
+
 }
 
+
+
+//#Preview {
+//    let homeVC = HomeViewController()
+//    
+//    return homeVC
+//}

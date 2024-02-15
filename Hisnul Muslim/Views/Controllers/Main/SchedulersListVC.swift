@@ -20,7 +20,20 @@ class SchedulersListVC: HSDataLoadingVC, SchedulerDelegate  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchSchedulers()
+        getSchedulers()
+    }
+    
+    
+    override func updateContentUnavailableConfiguration(using state: UIContentUnavailableConfigurationState) {
+        if vm.schedulers.isEmpty {
+            var config = UIContentUnavailableConfiguration.empty()
+            config.image = UIImage(systemName: "bookmark.fill")
+            config.text = "لا يوجد أي إشعار جدولة"
+            config.secondaryText = "للحصول على ما عليك القيام به جدولة لأي دعاء داخل القائمة"
+            contentUnavailableConfiguration = config
+        } else {
+            contentUnavailableConfiguration = nil
+        }
     }
     
     func configureViewController() {
@@ -42,7 +55,7 @@ class SchedulersListVC: HSDataLoadingVC, SchedulerDelegate  {
         
     }
     
-    func fetchSchedulers() {
+    func getSchedulers() {
         vm.fetchSchedulersData { [weak self] result in
             switch result {
             case .success(let schedulers):
@@ -61,14 +74,10 @@ class SchedulersListVC: HSDataLoadingVC, SchedulerDelegate  {
     
     
     func updateUI(with schedulersList: [HSMSchedulers]) {
-        if schedulersList.isEmpty {
-            self.showEmptyStateView(with: "لا يوجد أي إشعار هنا", in: self.view)
-        } else  {
-//            self.schedulersList = schedulersList
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.view.bringSubviewToFront(self.tableView)
-            }
+        setNeedsUpdateContentUnavailableConfiguration()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.view.bringSubviewToFront(self.tableView)
         }
     }
 }
@@ -96,8 +105,11 @@ extension SchedulersListVC: UITableViewDataSource, UITableViewDelegate {
                 UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [selectedObj.id!.uuidString])
                 self?.vm.schedulers.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .right)
+                self?.setNeedsUpdateContentUnavailableConfiguration()
                 DispatchQueue.main.async {
-                    self?.presentAlert(title: "Sucess", message: "you have unsubscribe to send notification of this dua: \(selectedObj.adkarName ?? "N/A")", buttonTitle: "OK!")
+                    self?.presentAlert(title: "نجاح", message: "لقد تم إلغاء الاشتراك في إرسال الإشعارات لهذا الدعاء: \(selectedObj.adkarName ?? "N/A")", buttonTitle: "OK")
+
+
                 }
             case .failure(let err):
                 DispatchQueue.main.async {

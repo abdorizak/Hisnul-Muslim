@@ -50,3 +50,9 @@ class MainTabBarController: UITabBarController {
     }
 
 }
+
+@available(iOS 17, *)
+#Preview {
+    let main_controller = MainTabBarController()
+    return main_controller
+}

@@ -34,14 +34,14 @@ The "حِصن المسلمِ" app is designed to be a convenient tool for Muslim
 - [x] Store supplications in `Core Data` with Notification time.
 - [x] Supports iPhone and iPad.
 - [x] iPhone SE support.
-- [x] Supports iOS 15.0 and above.
+- [x] Supports iOS 17.0 and above.
 - [x] Dark Mode and Light Mode.
 
 
 ## Requirements
 
-- iOS 15.0+
-- Xcode 13.0+
+- iOS 17.0+
+- Xcode 15.0+
 - Swift 5.0+
 
 
@@ -68,6 +68,7 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE.md)
 - [LinkedIn](https://linkedin.com/in/abdorizak)
 - [Twitter](https://twitter.com/abdorizak)
 - [Gmail](mailto:cabdirizaaqyare12@gmail.com)
+- [abdorizak.dev](https://abdorizak.dev)
 
 ## Author
 

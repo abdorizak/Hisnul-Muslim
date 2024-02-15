@@ -15,6 +15,7 @@ final class HSMSchedulerViewModel {
     let schedulerdata = HSMCoreDataHelper()
     var schedulers = [HSMSchedulers]()
     weak var delegate: SchedulerDelegate?
+    
     init() { }
     
     func index(_ index: Int) -> HSMSchedulers {

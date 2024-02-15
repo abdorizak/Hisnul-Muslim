@@ -25,7 +25,7 @@ The "حِصن المسلمِ" app is designed to be a convenient tool for Muslim
 ## Features
 
 - [x] 100+ supplications
-- [x] Swif `%100`
+- [x] Swift `%100`
 - [x] UIKit Programmatic UI.
 - [x] MVVM design pattern.
 - [x] Bookmark supplications.

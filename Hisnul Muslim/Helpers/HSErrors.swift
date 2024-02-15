@@ -8,7 +8,7 @@
 import Foundation
 
 enum HSErrors: String, Error {
-    case alreadyInFavorite = "Already In Favorite.."
-    case unableToFavorite = "Unable To Favorate"
-    case invalidContext = "invalidContext...."
+    case alreadyInFavorite = "موجود بالفعل في مفضلة الأدعية..."
+    case unableToFavorite = "غير قادر على إضافة هذا إلى المفضلة، لأنه موجود بالفعل في المفضلة"
+    case invalidContext = "invalid Context...."
 }

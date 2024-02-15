@@ -25,6 +25,18 @@ class AdkarFavoritesListVC: HSDataLoadingVC {
         getFavorites()
     }
     
+    override func updateContentUnavailableConfiguration(using state: UIContentUnavailableConfigurationState) {
+        if favorites.isEmpty {
+            var config = UIContentUnavailableConfiguration.empty()
+            config.image = UIImage(systemName: "bookmark.fill")
+            config.text = "لا يوجد هنا أي مفضلات"
+            config.secondaryText = "ليس لديك أي أدعية مفضلة، أضف اذهب وقم بتفعيل الأدعية المفضلة لديك"
+            contentUnavailableConfiguration = config
+        } else {
+            contentUnavailableConfiguration = nil
+        }
+    }
+    
     
     func configureViewController() {
         view.backgroundColor    = .systemBackground
@@ -61,18 +73,15 @@ class AdkarFavoritesListVC: HSDataLoadingVC {
         }
     }
     
-    
     func updateUI(with favorites: [Content]) {
-        if favorites.isEmpty {
-            self.showEmptyStateView(with: "لا يوجد هنا أي مفضلات", in: self.view)
-        } else  {
-            self.favorites = favorites
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.view.bringSubviewToFront(self.tableView)
-            }
+        self.favorites = favorites
+        setNeedsUpdateContentUnavailableConfiguration()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.view.bringSubviewToFront(self.tableView)
         }
     }
+    
 }
 
 
@@ -110,6 +119,7 @@ extension AdkarFavoritesListVC: UITableViewDataSource, UITableViewDelegate {
             guard let error = error else {
                 self.favorites.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .left)
+                setNeedsUpdateContentUnavailableConfiguration()
                 return
             }
             
@@ -119,4 +129,9 @@ extension AdkarFavoritesListVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
 }
+
+//#Preview {
+//    let favoriteVC = AdkarFavoritesListVC()
+//    return favoriteVC
+//}
 

@@ -27,7 +27,7 @@ class SchedulersListVC: HSDataLoadingVC, SchedulerDelegate  {
     override func updateContentUnavailableConfiguration(using state: UIContentUnavailableConfigurationState) {
         if vm.schedulers.isEmpty {
             var config = UIContentUnavailableConfiguration.empty()
-            config.image = UIImage(systemName: "bookmark.fill")
+            config.image = UIImage(systemName: "alarm.fill")
             config.text = "لا يوجد أي إشعار جدولة"
             config.secondaryText = "للحصول على ما عليك القيام به جدولة لأي دعاء داخل القائمة"
             contentUnavailableConfiguration = config

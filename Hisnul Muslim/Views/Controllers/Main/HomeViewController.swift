@@ -99,11 +99,10 @@ extension HomeViewController: HSMDelegate, UITableViewDelegate, UNUserNotificati
     }
     
     func updateData(on hsmContents: [Content]) {
-        debugPrint(hsmContents)
         var snapShot = NSDiffableDataSourceSnapshot<Section, Content>()
         snapShot.appendSections([.main])
         snapShot.appendItems(hsmContents)
-//        setNeedsUpdateContentUnavailableConfiguration()
+        setNeedsUpdateContentUnavailableConfiguration()
         DispatchQueue.main.async {
             self.datasource.apply(snapShot, animatingDifferences: true)
         }
@@ -152,7 +151,6 @@ extension HomeViewController: UISearchResultsUpdating {
         }
         isSearching = true
         filterContents = vm.hs_mslm.filter { searchArabicText(query: filter, inTitle: $0.title) }
-        debugPrint(filterContents)
         updateData(on: filterContents)
         setNeedsUpdateContentUnavailableConfiguration()
     }

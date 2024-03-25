@@ -117,7 +117,6 @@ extension SchedulersListVC: UITableViewDataSource, UITableViewDelegate {
                 }
             }
         }
-        
     }
     
 }

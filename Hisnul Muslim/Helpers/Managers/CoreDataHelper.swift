@@ -39,33 +39,13 @@ final class HSMCoreDataHelper {
         }
     }
     
-    func insert(id: Int, adkarName: String, hour: Int, minute: Int) -> String {
-        guard let entity = NSEntityDescription.entity(forEntityName: "HSMSchedulerNotifications", in: context!) else {
-            return "Failed to save data: entity not found"
-        }
-        let dataObject = NSManagedObject(entity: entity, insertInto: context)
-        dataObject.setValue(id, forKey: "id")
-        dataObject.setValue(adkarName, forKey: "adkarName")
-        dataObject.setValue(hour, forKey: "hour")
-        dataObject.setValue(minute, forKey: "minute")
-        var msg: String = ""
-        do {
-            try context?.save()
-            msg = "Data saved successfully."
-            return msg
-        } catch {
-            msg = "Failed to save data: \(error.localizedDescription)"
-            return msg
-        }
-    }
-    
     func insert(adkarName: String, hour: String, minute: String) -> (success: Bool, message: String, id: String?) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HSMSchedulerNotifications")
-        fetchRequest.predicate = NSPredicate(format: "adkarName == %@", adkarName)
+        fetchRequest.predicate = NSPredicate(format: "hour == %@ AND minute == %@", hour, minute)
         do {
             let results = try context?.fetch(fetchRequest)
             if results?.count ?? 0 > 0 {
-                return (false, "Failed to save data: record with adkarName \(adkarName) already exists", nil)
+                return (false, "Failed to save data: record with hour \(hour) and minute \(minute) already exists", nil)
             }
         } catch {
             return (false, "Failed to save data: \(error.localizedDescription)", nil)
@@ -89,6 +69,7 @@ final class HSMCoreDataHelper {
     }
 
 
+
     func deleteRecord(withID id: UUID, completion: @escaping (Result<Void, Error>) -> Void) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HSMSchedulerNotifications")
         fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
@@ -108,6 +89,5 @@ final class HSMCoreDataHelper {
         }
     }
 
- 
 }
 

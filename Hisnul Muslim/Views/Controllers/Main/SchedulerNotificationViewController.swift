@@ -50,17 +50,24 @@ class SchedulerNotificationViewController: UIViewController {
     @objc func didSchedule() {
         let selectedTime = timePicker.date
         let timeFormat = DateFormatter()
-        timeFormat.timeStyle = .short
+        timeFormat.dateFormat = "h:mm a" // Use 12-hour format with AM/PM
         let selectedTimeString = timeFormat.string(from: selectedTime)
-        let components = selectedTimeString.split([":", " "])
-        let hour = components[0]
-        let minute = components[1]
+
+        let components = selectedTimeString.split(separator: " ")
+        let timeComponents = components[0].split(separator: ":")
+        let hour = Int(timeComponents[0]) ?? 0
+        let minute = Int(timeComponents[1]) ?? 0
+        let amPm = components[1]
+
+        // Adjust hour for 24-hour format
+        let adjustedHour = amPm == "PM" ? (hour % 12) + 12 : hour % 12
+
         // Save Date in CoreData
-        let result = HSMCoreDataHelper.shared.insert(adkarName: content.title, hour: hour, minute: minute)
+        let result = HSMCoreDataHelper.shared.insert(adkarName: content.title, hour: String(adjustedHour), minute: String(minute))
         if result.success {
             // Schedule daily notification
             let savedId = result.id!
-            SchedulerNotifications.shared.scheduleDailyNotification(identifier: savedId, hour: Int(hour) ?? 0, minute: Int(minute) ?? 0, AdkarContent: content.title) { message in
+            SchedulerNotifications.shared.scheduleDailyNotification(identifier: savedId, hour: adjustedHour, minute: minute, AdkarContent: content.title) { message in
                 if let message = message {
                     // present Alert if there is an error scheduling notification
                     DispatchQueue.main.async {
@@ -80,6 +87,5 @@ class SchedulerNotificationViewController: UIViewController {
             }
         }
     }
-    
-    
+
 }

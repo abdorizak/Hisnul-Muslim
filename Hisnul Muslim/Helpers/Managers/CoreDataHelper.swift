@@ -58,7 +58,7 @@ class HSMCoreDataHelper {
             }
             
             if results?.count ?? 0 > 0 {
-                return (false, "فشل حفظ البيانات: التسجيل بالساعة \(الساعة) والدقيقة \(الدقيقة) موجود بالفعل", nil)
+                return (false, "فشل حفظ البيانات: التسجيل بالساعة \(hour) والدقيقة \(minute) موجود بالفعل", nil)
             }
         } catch {
             return (false, "Failed to save data: \(error.localizedDescription)", nil)

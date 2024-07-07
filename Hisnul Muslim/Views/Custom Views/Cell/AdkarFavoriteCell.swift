@@ -10,7 +10,6 @@ import UIKit
 
 class AdkarFavoriteCell: UITableViewCell {
 
-    static let identifier = String(describing: AdkarFavoriteCell.self)
     private var adkar_title = Label(textAlignment: .right, 30)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

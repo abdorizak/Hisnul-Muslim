@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class SettingsTableViewCell: UITableViewCell {
-    static let identifier = String(describing: SettingsTableViewCell.self)
+
     private var title = Label(textAlignment: .right, 15)
     private var img   = UIImageView()
     

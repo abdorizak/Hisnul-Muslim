@@ -32,6 +32,8 @@
 		102E72AE29B4466A00989610 /* HisnulMuslimCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102E72AD29B4466A00989610 /* HisnulMuslimCell.swift */; };
 		102E72B129B4469200989610 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102E72B029B4469200989610 /* Label.swift */; };
 		102E72B429B51DFF00989610 /*  UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102E72B329B51DFF00989610 /*  UITableView+Ext.swift */; };
+		105AA7AE2C2E963A008A40EC /* EmptyStateViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA7AD2C2E963A008A40EC /* EmptyStateViewCell.swift */; };
+		105AA7B22C313722008A40EC /* AdkarFavoritesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105AA7B12C313721008A40EC /* AdkarFavoritesListViewModel.swift */; };
 		107A4511299821FE0095413D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107A4510299821FE0095413D /* AppDelegate.swift */; };
 		107A4513299821FE0095413D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107A4512299821FE0095413D /* SceneDelegate.swift */; };
 		107A4515299821FE0095413D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107A4514299821FE0095413D /* HomeViewController.swift */; };
@@ -49,6 +51,8 @@
 		10DEFA4029B25B6C008801B7 /* HisnulmuslimModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DEFA3F29B25B6C008801B7 /* HisnulmuslimModel.swift */; };
 		10DEFA4229B25BCF008801B7 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DEFA4129B25BCF008801B7 /* Content.swift */; };
 		10DEFA4429B25BE6008801B7 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10DEFA4329B25BE6008801B7 /* Page.swift */; };
+		10E7B73B2C319CD30070D73B /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E7B73A2C319CD30070D73B /* DetailsViewModel.swift */; };
+		10E7B73D2C39318E0070D73B /* UIStackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E7B73C2C39318E0070D73B /* UIStackView+Ext.swift */; };
 		10E96D7129D83A19007B80C4 /* HSErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E96D7029D83A19007B80C4 /* HSErrors.swift */; };
 		10FE0F5D299F4F5D0024EDEA /* Bundle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FE0F5C299F4F5D0024EDEA /* Bundle+Ext.swift */; };
 /* End PBXBuildFile section */
@@ -80,6 +84,8 @@
 		102E72AD29B4466A00989610 /* HisnulMuslimCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HisnulMuslimCell.swift; sourceTree = "<group>"; };
 		102E72B029B4469200989610 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		102E72B329B51DFF00989610 /*  UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " UITableView+Ext.swift"; sourceTree = "<group>"; };
+		105AA7AD2C2E963A008A40EC /* EmptyStateViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateViewCell.swift; sourceTree = "<group>"; };
+		105AA7B12C313721008A40EC /* AdkarFavoritesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdkarFavoritesListViewModel.swift; sourceTree = "<group>"; };
 		107A450D299821FE0095413D /* Hisnul Muslim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hisnul Muslim.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		107A4510299821FE0095413D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		107A4512299821FE0095413D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,12 +99,15 @@
 		10A5E08229CCAD260001316C /* HSMSchedulersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSMSchedulersViewModel.swift; sourceTree = "<group>"; };
 		10A5E08429CDB6620001316C /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		10A5E08829CDC60F0001316C /* TableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeader.swift; sourceTree = "<group>"; };
-		10A5E08A29CE299B0001316C /* SchedulersListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulersListVC.swift; sourceTree = "<group>"; };
+		10A5E08A29CE299B0001316C /* SchedulersListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulersListVC.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		10A5E08C29CE2AC20001316C /* SchedulersListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulersListCell.swift; sourceTree = "<group>"; };
 		10AFB3C72BB1D3670042744C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		10DAF6C72BF10F3400BD42F4 /* hmsConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = hmsConfig.xcconfig; sourceTree = "<group>"; };
 		10DEFA3F29B25B6C008801B7 /* HisnulmuslimModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HisnulmuslimModel.swift; sourceTree = "<group>"; };
 		10DEFA4129B25BCF008801B7 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		10DEFA4329B25BE6008801B7 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		10E7B73A2C319CD30070D73B /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
+		10E7B73C2C39318E0070D73B /* UIStackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
 		10E96D6D29D834A8007B80C4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		10E96D6E29D834D1007B80C4 /* Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Image.png; sourceTree = "<group>"; };
 		10E96D7029D83A19007B80C4 /* HSErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSErrors.swift; sourceTree = "<group>"; };
@@ -158,6 +167,8 @@
 			children = (
 				102E72A429B286E700989610 /* HSMViewModel.swift */,
 				10A5E08229CCAD260001316C /* HSMSchedulersViewModel.swift */,
+				105AA7B12C313721008A40EC /* AdkarFavoritesListViewModel.swift */,
+				10E7B73A2C319CD30070D73B /* DetailsViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -184,6 +195,7 @@
 				1007051129C06B6A0061DF82 /* AdkarFavoriteCell.swift */,
 				10A5E08C29CE2AC20001316C /* SchedulersListCell.swift */,
 				10A5E08429CDB6620001316C /* SettingsCell.swift */,
+				105AA7AD2C2E963A008A40EC /* EmptyStateViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -199,6 +211,7 @@
 		107A4504299821FE0095413D = {
 			isa = PBXGroup;
 			children = (
+				10DAF6C72BF10F3400BD42F4 /* hmsConfig.xcconfig */,
 				10E96D6D29D834A8007B80C4 /* README.md */,
 				10E96D6E29D834D1007B80C4 /* Image.png */,
 				10A5E07D29CB814B0001316C /* HSMSchedulerNotifications.xcdatamodeld */,
@@ -262,6 +275,7 @@
 				100704F429B870280061DF82 /* UIView+Ext.swift */,
 				1007051D29C72C2B0061DF82 /* String+Ext.swift */,
 				1007050B29C05DB40061DF82 /* UIVC+Ext.swift */,
+				10E7B73C2C39318E0070D73B /* UIStackView+Ext.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -385,10 +399,13 @@
 				1007050729C04DBC0061DF82 /* Constants.swift in Sources */,
 				10A5E08329CCAD260001316C /* HSMSchedulersViewModel.swift in Sources */,
 				1007051E29C72C2C0061DF82 /* String+Ext.swift in Sources */,
+				10E7B73D2C39318E0070D73B /* UIStackView+Ext.swift in Sources */,
 				107A4515299821FE0095413D /* HomeViewController.swift in Sources */,
+				10E7B73B2C319CD30070D73B /* DetailsViewModel.swift in Sources */,
 				1007050E29C05F130061DF82 /* AdkarFavoritesListVC.swift in Sources */,
 				1007051B29C728560061DF82 /* SchedulerNotificationViewController.swift in Sources */,
 				102E72A529B286E700989610 /* HSMViewModel.swift in Sources */,
+				105AA7B22C313722008A40EC /* AdkarFavoritesListViewModel.swift in Sources */,
 				100704F329B8687F0061DF82 /* DetailsCollectionViewCell.swift in Sources */,
 				102E72AB29B3C1F900989610 /* SettingsViewController.swift in Sources */,
 				102E72A929B3BEE400989610 /* MainTabBarController.swift in Sources */,
@@ -416,6 +433,7 @@
 				10A5E08B29CE299B0001316C /* SchedulersListVC.swift in Sources */,
 				102E72B429B51DFF00989610 /*  UITableView+Ext.swift in Sources */,
 				10A5E07C29CB78CC0001316C /* CoreDataHelper.swift in Sources */,
+				105AA7AE2C2E963A008A40EC /* EmptyStateViewCell.swift in Sources */,
 				107A4513299821FE0095413D /* SceneDelegate.swift in Sources */,
 				100704F729BB92930061DF82 /* UICollectionView.swift in Sources */,
 				10A5E07F29CB814B0001316C /* HSMSchedulerNotifications.xcdatamodeld in Sources */,
@@ -438,6 +456,7 @@
 /* Begin XCBuildConfiguration section */
 		107A451F299821FF0095413D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10DAF6C72BF10F3400BD42F4 /* hmsConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -488,7 +507,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -500,6 +519,7 @@
 		};
 		107A4520299821FF0095413D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10DAF6C72BF10F3400BD42F4 /* hmsConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -544,7 +564,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -556,12 +576,12 @@
 		};
 		107A4522299821FF0095413D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10DAF6C72BF10F3400BD42F4 /* hmsConfig.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Hisnul Muslim/Hisnul Muslim.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4QS25S2FVW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Hisnul Muslim/Info.plist";
@@ -571,12 +591,12 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.abdorizak.Hisnul-Muslim";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -596,7 +616,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Hisnul Muslim/Hisnul Muslim.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4QS25S2FVW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Hisnul Muslim/Info.plist";
@@ -606,12 +625,12 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.abdorizak.Hisnul-Muslim";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

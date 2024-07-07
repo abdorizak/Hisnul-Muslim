@@ -18,53 +18,48 @@ enum PersistenceManager {
         static let favorites = "favorites"
     }
     
-    static func updateWith(favorite: Content, actionType: PersistenceActionType, completion: @escaping(HSErrors?) -> Void) {
-        retrieveFavorites { result  in
-            switch result {
-            case .success(var favorites):
-                
-                switch actionType {
-                case .add:
-                    guard !favorites.contains(favorite) else {
-                        completion(.alreadyInFavorite)
-                        return
-                    }
-                    favorites.append(favorite )
-                case .remove:
-                    favorites.removeAll { $0.id == favorite.id  }
+    static func updateWith(favorite: Content, actionType: PersistenceActionType) async throws {
+        do {
+            var favorites = try await retrieveFavorites()
+            
+            switch actionType {
+            case .add:
+                guard !favorites.contains(favorite) else {
+                    throw HSErrors.alreadyInFavorite
                 }
-                
-                completion(save(favorite: favorites))
-                
-            case .failure(let err):
-                completion(err)
+                favorites.append(favorite)
+            case .remove:
+                favorites.removeAll { $0.id == favorite.id }
             }
+            
+            try await save(favorite: favorites)
+        } catch {
+            throw error
         }
-        
     }
     
-    static func retrieveFavorites(completion: @escaping (Result<[Content], HSErrors>) -> Void) {
+        
+    static func retrieveFavorites() async throws -> [Content] {
         guard let favoritesData = defaults.object(forKey: keys.favorites) as? Data else {
-            completion(.success([]))
-            return
+            return []
         }
         
         do {
             let favorites = try JSONDecoder().decode([Content].self, from: favoritesData)
-            completion(.success(favorites))
+            return favorites
         } catch {
-            completion(.failure(.unableToFavorite))
+            throw HSErrors.unableToFavorite
         }
     }
     
-    static func save(favorite: [Content]) -> HSErrors? {
+    static func save(favorite: [Content]) async throws {
         do {
             let encoder = JSONEncoder()
             let encodeFovarite = try encoder.encode(favorite)
             defaults.set(encodeFovarite, forKey: keys.favorites)
-            return nil
         } catch {
-            return .unableToFavorite
+            throw HSErrors.unableToFavorite
         }
     }
+
 }

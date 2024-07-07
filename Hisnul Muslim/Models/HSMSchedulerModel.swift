@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HSMSchedulers {
+struct HSMSchedulers: Hashable {
     let id: UUID?
     let adkarName: String?
     let hour: String?

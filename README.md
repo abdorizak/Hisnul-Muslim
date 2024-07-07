@@ -26,21 +26,54 @@ The "حِصن المسلمِ" app is designed to be a convenient tool for Muslim
 
 - [x] 100+ supplications
 - [x] Swift `%100`
-- [x] UIKit Programmatic UI.
-- [x] MVVM design pattern.
-- [x] Bookmark supplications.
-- [x] Search supplications.
-- [x] Notification supplications based on user's time request Using `UNUserNotificationCenter`.
-- [x] Store supplications in `Core Data` with Notification time.
-- [x] Supports iPhone and iPad.
-- [x] iPhone SE support.
-- [x] Supports iOS 17.0 and above.
-- [x] Dark Mode and Light Mode.
+- [x] UIKit Programmatic UI
+- [x] Combine Framework
+- [x] MVVM design pattern
+- [x] Bookmark supplications
+- [x] Search supplications
+- [x] Notification supplications based on user's time request using `UNUserNotificationCenter`
+- [x] Store supplications in `Core Data` with Notification time
+- [x] Supports iPhone and iPad
+- [x] iPhone SE support
+- [x] Supports iOS 15.0 and above
+- [x] Dark Mode and Light Mode
+- [x] Improved AlertVC with multiple button options.
+- [x] Enhanced Empty State handling
+- [x] Async/Await for better readability
+- [x] Improved file reading using Combine's Just Publisher
 
+### Improved Bundle Extension
+
+The Bundle extension has been improved to use Combine for reading files:
+
+```swift
+import Foundation
+import Combine
+
+extension Bundle {
+    func readFile(_ file: String) -> AnyPublisher<Data, HSErrors> {
+        guard let fileURL = self.url(forResource: file, withExtension: nil) else {
+            return Fail(error: HSErrors.fileNotFound).eraseToAnyPublisher()
+        }
+        
+        return Just(fileURL)
+            .tryMap { try Data(contentsOf: $0) }
+            .mapError { _ in HSErrors.unableToReadFile }
+            .eraseToAnyPublisher()
+    }
+    
+    func decodable<T: Decodable>(type Model: T.Type, _ fileName: String) -> AnyPublisher<T, HSErrors> {
+        readFile(fileName)
+            .decode(type: T.self, decoder: JSONDecoder())
+            .mapError { _ in HSErrors.unableToReadFile }
+            .eraseToAnyPublisher()
+    }
+}
+```
 
 ## Requirements
 
-- iOS 17.0+
+- iOS 15.0+
 - Xcode 15.0+
 - Swift 5.0+
 
@@ -74,3 +107,4 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE.md)
 
 - [Abdorizak Abdalla 🍎](https://linkedin.com/in/abdorizak)
 - © Copyright 2023 Abdorizak Abdalla. All rights reserved.
+

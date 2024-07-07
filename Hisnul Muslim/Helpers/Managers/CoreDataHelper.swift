@@ -58,14 +58,14 @@ class HSMCoreDataHelper {
             }
             
             if results?.count ?? 0 > 0 {
-                return (false, "Failed to save data: record with hour \(hour) and minute \(minute) already exists", nil)
+                return (false, "فشل حفظ البيانات: التسجيل بالساعة \(الساعة) والدقيقة \(الدقيقة) موجود بالفعل", nil)
             }
         } catch {
             return (false, "Failed to save data: \(error.localizedDescription)", nil)
         }
 
         guard let entity = NSEntityDescription.entity(forEntityName: "HSMSchedulerNotifications", in: context!) else {
-            return (false, "Failed to save data: entity not found", nil)
+            return (false, "فشل حفظ البيانات: لم يتم العثور على الكيان", nil)
         }
         
         let dataObject = NSManagedObject(entity: entity, insertInto: context)
@@ -84,9 +84,9 @@ class HSMCoreDataHelper {
                     continuation.resume(throwing: error)
                 }
             }
-            return (true, "Data saved successfully.", id.uuidString)
+            return (true, "تم حفظ المعلومات بنجاح.", id.uuidString)
         } catch {
-            return (false, "Failed to save data: \(error.localizedDescription)", nil)
+            return (false, "فشل في حفظ البيانات: \(error.localizedDescription)", nil)
         }
     }
 

@@ -20,4 +20,6 @@ extension String {
         return currentStr.split(separator: "|").filter { !$0.isEmpty }.map { String($0) }
     }
     
+    var isBlank: Bool { self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+    var isNotBlank: Bool { !isBlank }
 }

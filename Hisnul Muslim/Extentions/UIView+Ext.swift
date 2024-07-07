@@ -14,4 +14,9 @@ extension UIView {
         for i in views { addSubview(i) }
     }
     
+    var withoutAutoresizingMask: Self {
+        translatesAutoresizingMaskIntoConstraints = false
+        return self
+    }
+    
 }

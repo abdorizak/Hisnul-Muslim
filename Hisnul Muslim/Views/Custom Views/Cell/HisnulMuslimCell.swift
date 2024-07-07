@@ -10,7 +10,6 @@ import SwiftUI
 
 class HisnulMuslimCell: UITableViewCell {
 
-    static let identifier = String(describing: HisnulMuslimCell.self)
     private var adkar_title = Label(textAlignment: .right, 30)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -18,13 +17,9 @@ class HisnulMuslimCell: UITableViewCell {
         cellConfig()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
     }
     
     private func cellConfig() {

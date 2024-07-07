@@ -5,33 +5,67 @@
 //  Created by Abdirizak Hassan on 3/3/23.
 //
 
-import Foundation
 import UIKit
-
-// MARK: - HSM Protocol
-protocol HSMDelegate: AnyObject {
-    func didFinishLoadingHSMData()
-}
+import Combine
 
 class HSMViewModel {
-    private(set) var hs_mslm = [Content]()
     
-    weak var delegate: HSMDelegate?
+    let event = PassthroughSubject<Event, Never>()
     
-    init() { }
+    @Published var state: State
     
-    func index(_ index: Int) -> Content {
-        self.hs_mslm[index]
+    private var cancellables = Set<AnyCancellable>()
+    
+    init() {
+        self.state = State()
+        event
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in self?.handleEvent($0) }
+            .store(in: &cancellables)
+        
+        getHisnulmuslimData()
     }
     
-    func getHSMData() {
-        let data = self.getHisnulmuslimData()
-        self.hs_mslm = data.content
-        self.delegate?.didFinishLoadingHSMData()
+    private func handleEvent(_ event: Event) {
+        switch event {
+        case .search(let value):
+            state.filteredHs_mslm = state.hs_mslm.filter { $0.title.localizedCaseInsensitiveContains(value) }
+        case .searchCancel:
+            state.filteredHs_mslm = state.hs_mslm
+        default:
+            break
+        }
     }
     
-    func getHisnulmuslimData() -> HisnulmuslimModel {
-        let hisnulmuslim: HisnulmuslimModel = Bundle.main.decode(HisnulmuslimModel.self, from: "hisnul_muslim.json")
-        return hisnulmuslim
+    // Fetch data
+    func getHisnulmuslimData() {
+        Bundle.main.decodable(type: HisnulmuslimModel.self, "hisnul_muslim.json")
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(_):
+                    self?.event.send(.error(.unableToReadFile))
+                }
+            } receiveValue: { [weak self] result in
+                guard let self = self else { return }
+                self.state.hs_mslm = result.content
+                self.state.filteredHs_mslm = self.state.hs_mslm
+            }.store(in: &cancellables)
+    }
+}
+
+extension HSMViewModel {
+    
+    enum Event {
+        case error(HSErrors)
+        case search(String)
+        case searchCancel
+        case dataFetched([Content])
+    }
+    
+    struct State {
+        var hs_mslm: [Content] = []
+        var filteredHs_mslm: [Content] = []
     }
 }

@@ -8,7 +8,8 @@
 import UIKit
 import CoreData
 
-final class HSMCoreDataHelper {
+@MainActor
+class HSMCoreDataHelper {
     static let shared = HSMCoreDataHelper()
     private let appDelegate: AppDelegate?
     private let context: NSManagedObjectContext?
@@ -18,32 +19,44 @@ final class HSMCoreDataHelper {
         context = appDelegate?.persistentContainer.viewContext
     }
     
-    func fetchData(completion: @escaping (Result<[NSManagedObject], Error>) -> Void) {
+    // async fetchData
+    func fetchData() async throws -> [NSManagedObject] {
         guard let context = context else {
-            completion(.failure(HSErrors.invalidContext))
-            return
+            throw HSErrors.invalidContext
         }
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HSMSchedulerNotifications")
-        do {
-            let result = try context.fetch(fetchRequest) as! [NSManagedObject]
-            if result.isEmpty {
-                completion(.success([]))
-                return
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            do {
+                let result = try context.fetch(fetchRequest) as! [NSManagedObject]
+                if result.isEmpty {
+                    continuation.resume(returning: [])
+                    return
+                }
+                let scheduler = result.first!
+                scheduler.willAccessValue(forKey: nil)
+                continuation.resume(returning: result)
+            } catch {
+                continuation.resume(throwing: error)
             }
-            let scheduler = result.first!
-            scheduler.willAccessValue(forKey: nil)
-            completion(.success(result))
-        } catch {
-            print("Failed to fetch data: \(error.localizedDescription)")
-            completion(.failure(error))
         }
     }
-    
-    func insert(adkarName: String, hour: String, minute: String) -> (success: Bool, message: String, id: String?) {
+
+    // async insert
+    func insert(adkarName: String, hour: String, minute: String) async throws -> (success: Bool, message: String, id: String?) {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HSMSchedulerNotifications")
         fetchRequest.predicate = NSPredicate(format: "hour == %@ AND minute == %@", hour, minute)
+        
         do {
-            let results = try context?.fetch(fetchRequest)
+            let results = try await withCheckedThrowingContinuation { continuation in
+                do {
+                    let results = try context?.fetch(fetchRequest)
+                    continuation.resume(returning: results)
+                } catch {
+                    continuation.resume(throwing: error)
+                }
+            }
+            
             if results?.count ?? 0 > 0 {
                 return (false, "Failed to save data: record with hour \(hour) and minute \(minute) already exists", nil)
             }
@@ -54,14 +67,23 @@ final class HSMCoreDataHelper {
         guard let entity = NSEntityDescription.entity(forEntityName: "HSMSchedulerNotifications", in: context!) else {
             return (false, "Failed to save data: entity not found", nil)
         }
+        
         let dataObject = NSManagedObject(entity: entity, insertInto: context)
         let id = UUID()
         dataObject.setValue(id, forKey: "id")
         dataObject.setValue(adkarName, forKey: "adkarName")
         dataObject.setValue(hour, forKey: "hour")
         dataObject.setValue(minute, forKey: "minute")
+        
         do {
-            try context?.save()
+            try await withCheckedThrowingContinuation { continuation in
+                do {
+                    try context?.save()
+                    continuation.resume(returning: ())
+                } catch {
+                    continuation.resume(throwing: error)
+                }
+            }
             return (true, "Data saved successfully.", id.uuidString)
         } catch {
             return (false, "Failed to save data: \(error.localizedDescription)", nil)
@@ -69,23 +91,40 @@ final class HSMCoreDataHelper {
     }
 
 
-
-    func deleteRecord(withID id: UUID, completion: @escaping (Result<Void, Error>) -> Void) {
+    func deleteRecord(withID id: UUID) async throws {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "HSMSchedulerNotifications")
         fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
 
-        do {
-            let results = try context?.fetch(fetchRequest) as? [NSManagedObject]
-            guard let record = results?.first else {
-                let error = NSError(domain: "com.abdorizak.Hisnul-Muslim", code: 404, userInfo: [NSLocalizedDescriptionKey: "Record not found"])
-                completion(.failure(error))
-                return
+        guard let context = context else {
+            throw NSError(domain: "com.abdorizak.Hisnul-Muslim", code: 500, userInfo: [NSLocalizedDescriptionKey: "Invalid context"])
+        }
+
+        let results: [NSManagedObject] = try await withCheckedThrowingContinuation { continuation in
+            do {
+                if let fetchedResults = try context.fetch(fetchRequest) as? [NSManagedObject] {
+                    continuation.resume(returning: fetchedResults)
+                } else {
+                    let error = NSError(domain: "com.abdorizak.Hisnul-Muslim", code: 404, userInfo: [NSLocalizedDescriptionKey: "Record not found"])
+                    continuation.resume(throwing: error)
+                }
+            } catch {
+                continuation.resume(throwing: error)
             }
-            context?.delete(record)
-            try context?.save()
-            completion(.success(()))
-        } catch {
-            completion(.failure(error))
+        }
+
+        guard let record = results.first else {
+            throw NSError(domain: "com.abdorizak.Hisnul-Muslim", code: 404, userInfo: [NSLocalizedDescriptionKey: "Record not found"])
+        }
+
+        context.delete(record)
+
+        try await withCheckedThrowingContinuation { continuation in
+            do {
+                try context.save()
+                continuation.resume(returning: ())
+            } catch {
+                continuation.resume(throwing: error)
+            }
         }
     }
 

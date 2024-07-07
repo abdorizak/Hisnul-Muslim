@@ -6,17 +6,57 @@
 //
 
 import UIKit
+import Combine
 
 class DetailsViewController: UIViewController {
-    enum Section { case main }
-    var content: Content!
-    var collectionView: UICollectionView!
-    var dataSource: UICollectionViewDiffableDataSource<Section, Page>!
+    //    var content: Content!
+    var vm: DetailsViewModel!
+    private var cancellables = Set<AnyCancellable>()
+    private lazy var dataSource = DataSource(collectionView: collectionView) { [weak self] collectionView, indexPath, row in
+        switch row {
+        case .page(let page):
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailsCollectionViewCell.identifier, for: indexPath) as! DetailsCollectionViewCell
+            cell.displayContents(of: page)
+            cell.contentView.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+            return cell
+        }
+    }
+    
+    private lazy var pageController: UIPageControl = {
+        $0.numberOfPages = vm.state.details.pages.count
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        $0.backgroundStyle = .prominent
+        $0.currentPageIndicatorTintColor = .label
+        $0.pageIndicatorTintColor = .systemGray
+        return $0
+    }(UIPageControl())
+    
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isPagingEnabled = true
+        collectionView.alwaysBounceHorizontal = true
+        collectionView.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(DetailsCollectionViewCell.self, forCellWithReuseIdentifier: DetailsCollectionViewCell.identifier)
+        
+        return collectionView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureDetailViewController()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setCollectionViewLayout()
     }
     
     private func configureDetailViewController() {
@@ -26,68 +66,79 @@ class DetailsViewController: UIViewController {
         let notifyMe = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .done, target: self, action: #selector(notifyMe))
         navigationItem.rightBarButtonItems = [notifyMe, addBtn]
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), landscapeImagePhone: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(didTapBack))
-        navigationItem.title = content.title
-//        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.title = vm.state.details.title
         configureCollectionView()
-        configureDataSource()
-        updateUI()
+        bindViewModel()
+    }
+    
+    private func bindViewModel() {
+        
+        vm.event
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in self?.handleEvent($0) }
+            .store(in: &cancellables)
+        
+        vm.$state
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in self?.handleState($0) }
+            .store(in: &cancellables)
     }
     
     private func configureCollectionView() {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .tertiarySystemFill
-        collectionView.register(DetailsCollectionViewCell.self, forCellWithReuseIdentifier: DetailsCollectionViewCell.identifier)
-        view.addSubview(collectionView)
-        collectionView.delegate = self
+        view.addSubViews(collectionView, pageController)
+        
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            pageController.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
+            pageController.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: -4),
         ])
     }
     
-    @objc func addFavorite() {
-        let favorite = Content(id: content.id, title: content.title, pages: content.pages)
-        
-        PersistenceManager.updateWith(favorite: favorite, actionType: .add) { [weak self] error in
-            guard let self = self else { return }
-            
-            guard let error = error else {
-                self.presentAlert(title: "نجاح!", message: "لديك هذا المستخدم المفضل بنجاح 🎉", buttonTitle: "موافق")
-                return
-            }
-            self.presentAlert(title: "خطأ", message: error.rawValue, buttonTitle: "ok")
+    private func setCollectionViewLayout() {
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.itemSize = collectionView.bounds.size
         }
     }
     
-    @objc func notifyMe() {
-        // check if the user autorized to send notifications
-        if SchedulerNotifications.shared.isUserAllowNotification {
-            let schedulerVC = SchedulerNotificationViewController()
-            schedulerVC.content = self.content
-            schedulerVC.modalPresentationStyle = .pageSheet
-            schedulerVC.sheetPresentationController?.detents = [.medium()]
-            schedulerVC.sheetPresentationController?.preferredCornerRadius = 20
-            schedulerVC.sheetPresentationController?.prefersGrabberVisible = true
-            present(schedulerVC, animated: true)
-        } else {
-            let alertController = UIAlertController(title: "تحذير", message: "تحتاج إلى السماح للتطبيق بإرسال الإشعارات. يرجى الذهاب إلى إعدادات الجهاز لتمكين الإشعارات.", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            alertController.addAction(UIAlertAction(title: "Settings", style: .default, handler: { _ in
-                if let url = URL(string: UIApplication.openSettingsURLString) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                }
-            }))
-            DispatchQueue.main.async { [weak self] in
-                self?.present(alertController, animated: true, completion: nil)
-            }
+    private func handleEvent(_ event: DetailsViewModel.Event) {
+        switch event {
+        case .showMessage(let title, let message, let type):
+            presentAlertOnMainThread(title: title, message: message, type: type)
+        case .didNotify(let content):
+            self.showNotificationScheduler(content)
+        default:
+            break
         }
-        
+    }
+    
+    private func handleState(_ state: DetailsViewModel.State) {
+        var snapShot = Snapshot()
+        snapShot.appendSections([.main])
+        snapShot.appendItems(state.details.pages.map { .page($0) })
+        pageController.isHidden = state.details.pages.count <= 1
+        dataSource.applyOnMainThread(snapShot, animatingDifferences: true)
+    }
+    
+    private func showNotificationScheduler(_ content: Content) {
+        let schedulerVC = SchedulerNotificationViewController()
+        schedulerVC.content = content
+        schedulerVC.modalPresentationStyle = .pageSheet
+        schedulerVC.sheetPresentationController?.detents = [.medium()]
+        schedulerVC.sheetPresentationController?.preferredCornerRadius = 20
+        schedulerVC.sheetPresentationController?.prefersGrabberVisible = true
+        present(schedulerVC, animated: true)
+    }
+    
+    @objc func addFavorite() {
+        vm.addFavorite(vm.state.details)
+    }
+    
+    @objc func notifyMe() {
+        vm.checkNotificationAccess()
     }
     
     @objc func didTapBack() {
@@ -97,29 +148,23 @@ class DetailsViewController: UIViewController {
 }
 
 extension DetailsViewController {
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, Row>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Row>
     
-    func updateUI() {
-        self.updateData(on: content)
-        DispatchQueue.main.async { [self] in
-            self.collectionView.reloadData()
+    enum Section: CaseIterable { case main }
+    
+    enum Row: Hashable {
+        case page(Page)
+        
+        static func == (lhs: Row, rhs: Row) -> Bool {
+            lhs.hashValue == rhs.hashValue
         }
-    }
-    
-    func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, itemIdentifier in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailsCollectionViewCell.identifier, for: indexPath) as! DetailsCollectionViewCell
-            let pages_need_to_display = self.content.pages[indexPath.item]
-            cell.displayContents(of: pages_need_to_display)
-            return cell
-        })
-    }
-    
-    func updateData(on pages: Content) {
-        var snapShot = NSDiffableDataSourceSnapshot<Section, Page>()
-        snapShot.appendSections([.main])
-        snapShot.appendItems(pages.pages)
-        DispatchQueue.main.async {
-            self.dataSource.apply(snapShot, animatingDifferences: true)
+        
+        func hash(into hasher: inout Hasher) {
+            switch self {
+            case .page(let page):
+                hasher.combine(page.page)
+            }
         }
     }
     
@@ -131,8 +176,21 @@ extension DetailsViewController: UICollectionViewDelegateFlowLayout, UNUserNotif
         completionHandler([.banner, .sound, .badge])
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.size.width, height: collectionView.bounds.height)
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let cellWidthIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
+        
+        var offset = targetContentOffset.pointee
+        let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
+        let roundedIndex = round(index)
+        
+        offset = CGPoint(x: roundedIndex * cellWidthIncludingSpacing - scrollView.contentInset.left, y: -scrollView.contentInset.top)
+        targetContentOffset.pointee = offset
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pageIndex = round(scrollView.contentOffset.x / view.frame.width)
+        pageController.currentPage = Int(pageIndex)
     }
     
 }

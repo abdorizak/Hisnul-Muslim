@@ -6,31 +6,59 @@
 //
 
 import UIKit
-import SwiftUI
+import Combine
 
 class HomeViewController: UIViewController {
     
-    enum Section { case main }
     private var vm = HSMViewModel()
-    private var filterContents = [Content]()
-    private var isSearching: Bool = false
-    private var tableView: UITableView!
-    private var datasource: UITableViewDiffableDataSource<Section, Content>!
-
+    
+    private var cancellables = Set<AnyCancellable>()
+    private lazy var dataSource = DataSource(tableView: tableView) { [weak self] tableView, indexPath, row in
+        switch row {
+        case let .noData(icon, title, msg):
+            let cell = tableView.dequeueReusableCell(withIdentifier: EmptyStateViewCell.identifier, for: indexPath) as! EmptyStateViewCell
+            cell.displayData(title: title, message: msg, image: icon)
+            return cell
+        case .suplications(let content):
+            let cell = tableView.dequeueReusableCell(withIdentifier: HisnulMuslimCell.identifier, for: indexPath) as! HisnulMuslimCell
+            cell.displayData(list: content)
+            return cell
+        }
+        
+    }
+    
+    private lazy var searchBar = {
+        $0.placeholder = "ابحث ..."
+        $0.searchBarStyle = .minimal
+        $0.delegate = self
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        return $0
+    }(UISearchBar())
+    
+    private lazy var tableView = {
+        $0.delegate = self
+        $0.separatorStyle = .none
+        $0.keyboardDismissMode = .onDrag
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        
+        $0.register(EmptyStateViewCell.self)
+        $0.register(HisnulMuslimCell.self)
+        return $0
+    }(UITableView())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureHomeVC()
+        bindToView()
     }
     
     private func configureHomeVC() {
         UNUserNotificationCenter.current().delegate = self
         view.backgroundColor = .systemBackground
+        view.addSubViews(searchBar, tableView)
         configNavBar()
-        ConfigureSearchController()
+        configureSearchBar()
         configTableView()
-        vm.delegate = self
-        vm.getHSMData()
-        configureDataSource()
     }
     
     private func configNavBar() {
@@ -39,24 +67,17 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    func ConfigureSearchController() {
-        let searchController                                    = UISearchController()
-        searchController.searchResultsUpdater                   = self
-        searchController.searchBar.placeholder                  = "ابحث ..."
-        searchController.searchBar.searchTextField.textAlignment = .right
-        searchController.obscuresBackgroundDuringPresentation   = false
-        navigationItem.searchController                         = searchController
+    private func configureSearchBar() {
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+        ])
     }
     
     private func configTableView() {
-        tableView = UITableView(frame: view.bounds)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(HisnulMuslimCell.self, forCellReuseIdentifier: HisnulMuslimCell.identifier)
-        tableView.separatorStyle = .singleLine
-        tableView.delegate = self
-        view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -64,103 +85,112 @@ class HomeViewController: UIViewController {
     }
     
     
-    override func updateContentUnavailableConfiguration(using state: UIContentUnavailableConfigurationState) {
-        if vm.hs_mslm.isEmpty {
-            var config = UIContentUnavailableConfiguration.empty()
-            config.text = "آسف!"
-            config.secondaryText = "حدث خطأ ما، وسوف نقوم بإصلاح هذه المشكلة."
-            config.image = UIImage(systemName: "book")
-            contentUnavailableConfiguration = config
-        } else if isSearching && filterContents.isEmpty {
-            contentUnavailableConfiguration = UIContentUnavailableConfiguration.search()
-        }
-        else {
-            contentUnavailableConfiguration = nil
-        }
+    func bindToView() {
         
+        vm
+            .event
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in self?.handleEvent($0) }
+            .store(in: &cancellables)
+        
+        vm
+            .$state
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in self?.handleState($0) }
+            .store(in: &cancellables)
     }
+
+    private func handleEvent(_ event: HSMViewModel.Event) {
+        switch event {
+        case .error(let hSErrors):
+            self.presentAlertOnMainThread(title: "Error", message: hSErrors.localizedDescription)
+        default:
+            break
+        }
+    }
+    
+    private func handleState(_ state: HSMViewModel.State) {
+        var snapshot = Snapshot()
+        snapshot.appendSections(Section.allCases)
+        if state.filteredHs_mslm.isEmpty {
+            snapshot.appendItems([.noData(.hisnulMuslimBook, "No Data", "No data found")], toSection: .main)
+        } else {
+            snapshot.appendItems(state.filteredHs_mslm.map { .suplications($0) }, toSection: .main)
+        }
+        self.dataSource.applyOnMainThread(snapshot, animatingDifferences: true)
+    }
+    
 }
 
-extension HomeViewController: HSMDelegate, UITableViewDelegate, UNUserNotificationCenterDelegate {
-    
-    func didFinishLoadingHSMData() {
-        updateData(on: vm.hs_mslm)
-        tableView.reloadDataOnMainThread()
-    }
-    
-    func configureDataSource() {
-        self.datasource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
-            let cell = tableView.dequeueReusableCell(withIdentifier: HisnulMuslimCell.identifier, for: indexPath) as! HisnulMuslimCell
-            let hsm_Contents = self.vm.index(indexPath.row)
-            cell.displayData(list: hsm_Contents)
-            cell.selectionStyle = .none
-            return cell
-        })
-    }
-    
-    func updateData(on hsmContents: [Content]) {
-        var snapShot = NSDiffableDataSourceSnapshot<Section, Content>()
-        snapShot.appendSections([.main])
-        snapShot.appendItems(hsmContents)
-        setNeedsUpdateContentUnavailableConfiguration()
-        DispatchQueue.main.async {
-            self.datasource.apply(snapShot, animatingDifferences: true)
-        }
-    }
+extension HomeViewController: UITableViewDelegate, UNUserNotificationCenterDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let activeArray = isSearching ? filterContents : vm.hs_mslm
-        let selectedObj = activeArray[indexPath.row]
-        let detailVC = DetailsViewController()
-        detailVC.content = selectedObj
-        let navigationController = UINavigationController(rootViewController: detailVC)
-        navigationController.modalPresentationStyle = .fullScreen
-        navigationController.modalTransitionStyle = .coverVertical
-        present(navigationController, animated: true, completion: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
+        switch item {
+        case .noData:
+            break
+        case .suplications(let content):
+            let vc = DetailsViewController()
+            vc.vm = .init(content: content)
+            let nv = UINavigationController(rootViewController: vc)
+            nv.modalPresentationStyle = .fullScreen
+            present(nv, animated: true)
+        }
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .sound, .badge])
     }
-     
-}
-
-extension HomeViewController: UISearchResultsUpdating {
     
-    func stripDiacritics(from text: String) -> String {
-        return text.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: Locale(identifier: "ar"))
-    }
-
-    func searchArabicText(query: String, inTitle title: String) -> Bool {
-        // Remove diacritics from the query
-        let normalizedQuery = stripDiacritics(from: query)
-
-        // Remove diacritics from the title for search
-        let normalizedTitleForSearch = stripDiacritics(from: title)
-
-        // Check if the normalized title contains the normalized query
-        return normalizedTitleForSearch.contains(normalizedQuery)
-    }
-
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let filter = searchController.searchBar.text, !filter.isEmpty else {
-            filterContents.removeAll()
-            updateData(on: vm.hs_mslm)
-            isSearching = false
-            return
-        }
-        isSearching = true
-        filterContents = vm.hs_mslm.filter { searchArabicText(query: filter, inTitle: $0.title) }
-        updateData(on: filterContents)
-        setNeedsUpdateContentUnavailableConfiguration()
-    }
-
 }
 
+extension HomeViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        view.endEditing(true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if let text = searchBar.text, text.isNotBlank {
+            vm.event.send(.search(text))
+        } else {
+            vm.event.send(.searchCancel)
+        }
+    }
+}
 
+extension HomeViewController {
+    typealias DataSource = UITableViewDiffableDataSource<Section, Row>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Row>
+    
+    enum Section: CaseIterable {
+        case main
+    }
+    
+    enum Row: Hashable {
+        
+        case
+            noData(UIImage, String, String),
+            suplications(Content)
+        
+        static func == (lhs: Row, rhs: Row) -> Bool {
+            lhs.hashValue == rhs.hashValue
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            switch self {
+            case let .noData(icon, title, msg):
+                hasher.combine(values: "noData", icon, title, msg)
+            case .suplications(let content):
+                hasher.combine(content.id)
+            }
+        }
+    }
+    
+    
+}
 
 //#Preview {
-//    let homeVC = HomeViewController()
-//    
-//    return homeVC
+//    HomeViewController()
 //}

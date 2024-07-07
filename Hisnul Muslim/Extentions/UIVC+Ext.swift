@@ -10,19 +10,19 @@ import UIKit
 
 extension UIViewController {
     
-    func presentAlert(title: String, message: String, buttonTitle: String) {
-        let alertVC = AlertVC(title: title, message: message, buttonTitle: buttonTitle)
-        alertVC.modalPresentationStyle  = .overFullScreen
-        alertVC.modalTransitionStyle    = .crossDissolve
-        present(alertVC, animated: true)
+    func presentAlertOnMainThread(title: String, message: String, type: AlertVC.AlertAction = .ok) {
+        DispatchQueue.main.async {
+            let ac = AlertVC(title: title, message: message, actions: [type])
+            ac.modalPresentationStyle = .overFullScreen
+            ac.modalTransitionStyle = .crossDissolve
+            self.present(ac, animated: true)
+        }
     }
     
-    func presentDefaultError() {
-        let alertVC = AlertVC(title: "Something Went Wrong",
-                                message: "We were unable to complete your task at this time. Please try again.",
-                                buttonTitle: "Ok")
-        alertVC.modalPresentationStyle  = .overFullScreen
-        alertVC.modalTransitionStyle    = .crossDissolve
-        present(alertVC, animated: true)
+}
+
+extension Hasher {
+    @inlinable mutating func combine(values: any Hashable...) {
+        values.forEach { self.combine($0) }
     }
 }

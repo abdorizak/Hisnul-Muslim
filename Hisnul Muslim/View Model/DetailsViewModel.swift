@@ -46,12 +46,16 @@ class DetailsViewModel {
     }
     
     func checkNotificationAccess() {
-        if SchedulerNotifications.shared.isUserAllowNotification {
-            event.send(.didNotify(state.details))
-        } else {
-            event.send(.showMessage("خطأ", "يجب أن تسمح بالإشعارات في الإعدادات.", .okWithSettings))
+        Task {
+            let isAllowed = await SchedulerNotifications.shared.isUserAllowNotification
+            if isAllowed {
+                event.send(.didNotify(state.details))
+            } else {
+                event.send(.showMessage("خطأ", "يجب أن تسمح بالإشعارات في الإعدادات.", .okWithSettings))
+            }
         }
     }
+
 }
 
 extension DetailsViewModel {

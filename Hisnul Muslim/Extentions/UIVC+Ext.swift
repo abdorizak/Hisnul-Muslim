@@ -9,17 +9,16 @@ import Foundation
 import UIKit
 
 extension UIViewController {
-    
-    func presentAlertOnMainThread(title: String, message: String, type: AlertVC.AlertAction = .ok) {
+    func presentAlertOnMainThread(title: String, message: String, type: AlertVC.AlertAction = .ok, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async {
-            let ac = AlertVC(title: title, message: message, actions: [type])
+            let ac = AlertVC(title: title, message: message, actions: [type], completion: completion)
             ac.modalPresentationStyle = .overFullScreen
             ac.modalTransitionStyle = .crossDissolve
             self.present(ac, animated: true)
         }
     }
-    
 }
+
 
 extension Hasher {
     @inlinable mutating func combine(values: any Hashable...) {

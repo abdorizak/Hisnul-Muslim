@@ -68,23 +68,25 @@ class SchedulerNotificationViewController: UIViewController {
                 if result.success {
                     // Schedule daily notification
                     let savedId = result.id!
-                    SchedulerNotifications.shared.scheduleDailyNotification(identifier: savedId, hour: adjustedHour, minute: minute, AdkarContent: content.title) { [weak self] message in
-                        if let message = message {
-                            // present Alert if there is an error scheduling notification
-                            self?.presentAlertOnMainThread(title: "نجاح", message: message)
-                        } else {
-                            // present Alert if notification scheduled successfully
-                            self?.presentAlertOnMainThread(title: "⛔️", message: "حدث خطأ ما")
-                        }
+                    let message = try await SchedulerNotifications.shared.scheduleDailyNotification(identifier: savedId, hour: adjustedHour, minute: minute, AdkarContent: content.title)
+                    self.presentAlertOnMainThread(title: "نجاح", message: message) { [weak self] in
+                        guard let self = self else { return }
+                        self.dismiss(animated: true)
                     }
                 } else {
                     // present Alert if there is an error saving data to CoreData
-                    self.presentAlertOnMainThread(title: "هل هناك خطأ ما!", message: result.message)
+                    self.presentAlertOnMainThread(title: "هل هناك خطأ ما!", message: result.message)  { [weak self] in
+                        guard let self = self else { return }
+                        self.dismiss(animated: true)
+                    }
                 }
             } catch {
-                self.presentAlertOnMainThread(title: "هل هناك خطأ ما!", message: error.localizedDescription)
+                self.presentAlertOnMainThread(title: "هل هناك خطأ ما!", message: error.localizedDescription)  { [weak self] in
+                    guard let self = self else { return }
+                    self.dismiss(animated: true)
+                }
             }
         }
     }
-
+    
 }

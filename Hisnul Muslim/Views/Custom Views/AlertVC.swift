@@ -23,14 +23,17 @@ class AlertVC: UIViewController {
     var alertTitle: String?
     var message: String?
     var actions: [AlertAction]?
+    var completion: (() -> Void)?
+
     
     let padding: CGFloat = 20
     
-    init(title: String, message: String, actions: [AlertAction]) {
+    init(title: String, message: String, actions: [AlertAction], completion: (() -> Void)? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.alertTitle = title
         self.message = message
         self.actions = actions
+        self.completion = completion
     }
     
     @available(*, unavailable)
@@ -131,12 +134,13 @@ class AlertVC: UIViewController {
     }
     
     @objc func dismissVC() {
-        dismiss(animated: true)
+        dismiss(animated: true, completion: completion)
     }
     
     @objc func openSettings() {
         if let url = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
+        self.dismissVC()
     }
 }
